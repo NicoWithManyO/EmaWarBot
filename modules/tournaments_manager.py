@@ -1,5 +1,18 @@
 
 
+import config_files.all_tournaments.ecup as ecup_config
+import config_files.all_tournaments.ranking as ranking_config
+import config_files.all_tournaments.ecl as ecl_config
+
+import helpers.gsheet_helper as gsheet
+
+import config_files.emojis as emojis
+
+def get_registrations_list(self):
+    self.registrations_list = gsheet.get_registrations_list(self)
+    return self.registrations_list
+
+
 class TournamentsManager():
     def instantiate_tournament(self):
         if isinstance(self, Ranking):
@@ -14,13 +27,36 @@ class TournamentsManager():
         self.current_season = config_file.current_season
         self.current_round = config_file.current_round
         self.config_file = config_file
-        # self.teams_list = gsheet.get_registrations(self)
-        # self.date = config_file.date
-        # self.final_teams_list = []
+        self.tournament_avatar = config_file.tournament_avatar
+        
+        self.current_registrations_number = 0
+        self.validaded_teams_list = None
+        self.registrations_teams_list = gsheet.get_registrations(self)
         
     def __str__(self):
-        return f"{self.emo} **{self.name}** s{self.current_season}\nRound : {current_round}"
+        return f"{self.emo} {self.name} {emojis.current_season}{self.current_season} | {emojis.current_round}{self.current_round}"
 
+    def get_registrations_teams_list(self):
+        self.registrations_teams_list = gsheet.get_registrations(self)
+        self.check_number_of_registrations()
+        return self.registrations_teams_list
+
+    def get_new_registrations_list(self):
+        old = len(self.registrations_teams_list)
+        self.registrations_teams_list = gsheet.get_registrations(self)
+        response = []
+        for x in self.registrations_teams_list:
+            if old < x['ewb_ID']:
+                response.append(x)
+        if len(response) == 0 :
+            response = False
+        return response
+
+    def set_registrations_status(self, value):
+        if value:
+            tournament.config_file.registrations_is_open == True
+        
+        
 # CLASS ENFANTS
 class Ranking(TournamentsManager):
     def __init__(self):
