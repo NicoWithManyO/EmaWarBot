@@ -16,7 +16,8 @@ class Public(commands.Cog):
         """Retourne les informations connues sur l'élément donné
         
         Fournir un rôle, un membre, pour en avoir les informations
-        - ema.info @membre
+        - ema.info @NicoWithManyO#8020
+        - ema.info @🔘+Référent Ecup
         """
         role = None
         member = None
@@ -30,8 +31,6 @@ class Public(commands.Cog):
         else:
             member = discord.utils.get(ctx.guild.members,id=int(querry))
             if member:
-                print(member)
-                print(type(member))
                 roles = []
                 bot = ""
                 
