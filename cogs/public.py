@@ -41,7 +41,7 @@ class Public(commands.Cog):
                 for x in member.roles:
                     roles.append(x.name)
                 title = f"{bot} {member.display_name}"
-                logo = member.display_avatar
+                logo = member.avatar_url
                 desc = f"Rôle(s) : {', '.join(roles)}\nDiscord depuis : {str(member.created_at)[:10]}\nMembre ici depuis : {str(member.joined_at)[:10]}\nid:{member.id}"
                 author = f"{type(member)}"
         
