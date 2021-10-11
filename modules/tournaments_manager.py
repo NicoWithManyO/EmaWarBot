@@ -51,10 +51,7 @@ class TournamentsManager():
         if len(response) == 0 :
             response = False
         return response
-
-    def set_registrations_status(self, value):
-        if value:
-            tournament.config_file.registrations_is_open == True
+            
         
         
 # CLASS ENFANTS

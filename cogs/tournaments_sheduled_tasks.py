@@ -10,10 +10,13 @@ import helpers.templates_to_publish as templates
 
 import config_files.ewb_bot as ewb_config
 
+import helpers.teams_helper as teams_helper
+
 class TournamentsSheduledTasks(commands.Cog):
     def __init__(self, ewb):
         self.ewb = ewb
-        self.registrations_watcher.start()
+        self.start_registrations_detection()
+        # self.registrations_watcher.start()
         
         # tournaments init
         for x in tournaments_config.active_tournaments:
@@ -26,7 +29,32 @@ class TournamentsSheduledTasks(commands.Cog):
             if x == "ecl":
                 self.ewb.ecl = tournaments_manager.Ecl()
                 print(self.ewb.ecl)
-
+    
+    
+    @commands.command()
+    @commands.has_permissions(manage_messages = True)
+    async def temp(self, ctx, *value):
+        print(await teams_helper.search_referent(self, ctx, value))
+    
+    
+    def start_registrations_detection(self):
+        self.registrations_watcher.start()
+        return f"[ewb] RegistrationsWatcher `on`"
+    def stop_registrations_detection(self):
+        self.registrations_watcher.stop()
+        return f"[ewb] RegistrationsWatcher `off`"
+    
+    # def check_teams_referent(self, teams_list):
+    
+    @commands.command()
+    @commands.has_permissions(manage_messages = True)
+    async def regWatcher(self, ctx, value):
+        if value == "on".lower():
+            await ctx.send(self.start_registrations_detection())
+        elif value == "off".lower():
+            await ctx.send(self.stop_registrations_detection())
+            
+    
     @tasks.loop(seconds=30)
     async def registrations_watcher(self):
         tournament = None
@@ -44,29 +72,8 @@ class TournamentsSheduledTasks(commands.Cog):
                     for x in to_show:
                         await channel.send(embed = x)
                 else:
-                    print(f"{tournament} no new registration")
-            
-            
-            
-            
-            
-            # print(tournament)
-            # old = tournament.current_registrations_number
-            # print(old)
-            # print(tournament.check_number_of_registrations())
-
-            
-
-
-            # tournament.get_registrations_teams_list()
-            # print(tournament.current_registrations_number)
-            # tournament.announce_new_registration()
-            
-            
-        
-
-
-    
+                    print(f"{tournament} registrations : {len(tournament.registrations_teams_list)} no new registration")
+            print(tournament.registrations_teams_list)
 
 def setup(bot):
     bot.add_cog(TournamentsSheduledTasks(bot))

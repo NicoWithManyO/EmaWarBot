@@ -17,6 +17,6 @@ referent_role = "🔶+Référent {name}"
 season_role = f"🔶+s{current_season}"
 color = discord.Color.dark_green()
 
-suivi_file = "https://s.divlo.fr/emaSuiviECup"
-engine_file = "https://docs.google.com/spreadsheets/d/1QNRBLXf1VpHakdO3x1_-qd5gZKH4QgqHuP4O8mCl8ig/edit#gid=1933450451"
+suivi_file = ""
+engine_file = "https://docs.google.com/spreadsheets/d/11yRJt19xzpkBw--eFP0Wd6Ld9Iql3Lg4fDrSG8vR4OM/edit#gid=0"
 import_wk = sheet_config.id_gs.open_by_url(engine_file).worksheet("VALIDATOR")

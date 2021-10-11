@@ -1,0 +1,9 @@
+py-cord
+coc.py
+gspread
+psutil
+tcp-latency
+pandas
+validators
+matplotlib
+googletrans==3.1.0a0

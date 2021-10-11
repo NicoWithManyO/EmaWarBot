@@ -5,7 +5,7 @@ import config_files.external_connectors.gsheet as sheet_config
 code_name = "ecup"
 name = code_name.title()
 state = "active"
-registrations_is_open = False
+registrations_is_open = True
 current_season = 8
 current_round = 1
 tournament_avatar = "https://media.discordapp.net/attachments/720014731062280274/882319092227383296/Emagine_Cup-1.png?width=582&height=616"
