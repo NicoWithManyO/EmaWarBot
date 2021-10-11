@@ -31,23 +31,12 @@ class TournamentsSheduledTasks(commands.Cog):
                 self.ewb.ecl = tournaments_manager.Ecl()
                 print(self.ewb.ecl)
     
-    
-    @commands.command()
-    @commands.has_permissions(manage_messages = True)
-    async def temp(self, ctx, *value):
-        print(value)
-        ref = await teams_helper.search_referent(self, ' '.join(value))
-        print(ref)
-        print(ref.avatar_url)
-    
     def start_registrations_detection(self):
         self.registrations_watcher.start()
         return f"[ewb] RegistrationsWatcher `on`"
     def stop_registrations_detection(self):
         self.registrations_watcher.stop()
         return f"[ewb] RegistrationsWatcher `off`"
-    
-    # def check_teams_referent(self, teams_list):
     
     @commands.command()
     @commands.has_permissions(manage_messages = True)
@@ -91,7 +80,6 @@ class TournamentsSheduledTasks(commands.Cog):
                 else:
                     print(f"{tournament} registrations : {len(tournament.registrations_teams_list)} no new registration")
             print(tournament)
-            # print(tournament.registrations_teams_list)
 
 def setup(bot):
     bot.add_cog(TournamentsSheduledTasks(bot))
