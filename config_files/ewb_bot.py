@@ -7,7 +7,7 @@ lock = False
 
 # base options
 prefix = ["ema.", "Ema.", "ecup.", "ranking.", "rkg.", "ecl."]
-# prefix = ["dev.", "ecup.", "ranking.", "ecl."]
+# prefix = ["dev.", "ecup.", "rkg.", "ecl."]
 case_insensitive = True
 intents = discord.Intents.all()
 

@@ -38,13 +38,7 @@ class TournamentsSheduledTasks(commands.Cog):
         print(value)
         ref = await teams_helper.search_referent(self, ' '.join(value))
         print(ref)
-        for x in ref:
-            print(discord.__version__)
-            await ctx.send(x.name)
-            await ctx.send(x.display_name)
-            await ctx.send(x.display_avatar)
-            await ctx.send(x.discriminator)
-            await ctx.send(x.mention)
+
 # Attributes
 # avatar
 # bot

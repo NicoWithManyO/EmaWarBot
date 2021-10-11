@@ -41,11 +41,11 @@ class Public(commands.Cog):
                 for x in member.roles:
                     roles.append(x.name)
                 title = f"{bot} {member.display_name}"
-                logo = member.avatar_url
+                # logo = member.avatar_display
                 desc = f"Rôle(s) : {', '.join(roles)}\nDiscord depuis : {str(member.created_at)[:10]}\nMembre ici depuis : {str(member.joined_at)[:10]}\nid:{member.id}"
                 author = f"{type(member)}"
         
-        await ctx.send(embed = templates.create_std_embed(self, ctx, title = f"{title}", desc = f"{desc}", author = f"{author}", logo = logo))
+        await ctx.send(embed = templates.create_std_embed(self, ctx, title = f"{title}", desc = f"{desc}", author = f"{author}"))
 
 
 def setup(bot):
