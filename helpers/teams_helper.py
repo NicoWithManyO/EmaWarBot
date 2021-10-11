@@ -10,4 +10,10 @@ async def search_referent(self, ctx, search):
                 finded.append(discord_user)
         else:
             pass
+    print(len(finded))
+    if len(finded) > 1:
+        return finded
+    else:
+        return finded
+    print(finded)
     return finded

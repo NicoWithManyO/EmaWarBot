@@ -3,6 +3,8 @@ import discord
 from discord.ext import commands
 from discord.ext import tasks
 
+import config_files.emojis as emojis
+
 import helpers.templates_to_publish as templates
 
 # bot = discord.Bot()
@@ -21,7 +23,7 @@ class Public(commands.Cog):
         """
         role = None
         member = None
-        querry = querry.replace("<@!","").replace("<@&","").replace(">","")
+        querry = querry.replace("<@!","").replace("<@&","").replace(">","").replace("<#","")
         role = discord.utils.get(ctx.guild.roles,id=int(querry))
         if role:
             desc = f"{len(role.members)} membre(s) | Mentionable : {role.mentionable}\nCréé le {str(role.created_at)[:10]}\nid:{role.id}"
