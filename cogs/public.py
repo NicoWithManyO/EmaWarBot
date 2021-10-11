@@ -5,7 +5,7 @@ from discord.ext import tasks
 
 import helpers.templates_to_publish as templates
 
-bot = discord.Bot()
+# bot = discord.Bot()
 
 class Public(commands.Cog):
     def __init__(self, ewb):
@@ -42,7 +42,7 @@ class Public(commands.Cog):
                 logo = member.avatar
                 desc = f"Rôle(s) : {', '.join(roles)}\nDiscord depuis : {str(member.created_at)[:10]}\nMembre ici depuis : {str(member.joined_at)[:10]}\nid:{member.id}"
                 author = f"{type(member)}"
-        # await ctx.send(f"{title} {desc} {author}")
+        
         await ctx.send(embed = templates.create_std_embed(self, ctx, title = f"{title}", desc = f"{desc}", author = f"{author}", logo = logo))
 
 
