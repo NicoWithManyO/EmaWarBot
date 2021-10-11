@@ -4,7 +4,7 @@ import discord
 temp = 859594625836122122
 
 # base options
-prefix = ["ema.", "Ema.", "ecup.", "ranking.", "rkg", "ecl."]
+prefix = ["ema.", "Ema.", "ecup.", "ranking.", "rkg.", "ecl."]
 # prefix = ["dev.", "ecup.", "ranking.", "ecl."]
 case_insensitive = True
 intents = discord.Intents.all()

@@ -8,7 +8,7 @@ state = "active"
 registrations_is_open = True
 current_season = 20
 current_round = 1
-tournament_avatar = "https://media.discordapp.net/attachments/720014731062280274/882319092227383296/Emagine_Cup-1.png?width=582&height=616"
+tournament_avatar = "https://cdn.discordapp.com/attachments/607932896526991366/749159353382207498/LogoRanking2.0.png"
 date = "du 15/10/21 au 26/11/21"
 start_date = "15/10/2021"
 

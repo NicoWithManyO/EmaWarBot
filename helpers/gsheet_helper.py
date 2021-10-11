@@ -16,3 +16,6 @@ def get_validaded_teams_list(self):
         if row['ewb_Roster'] != "":
             response.append(row)
     return response
+
+def set_data_team_to_sheet(self, target, data):
+    return self.config_file.import_wk.update(target, data)

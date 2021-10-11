@@ -11,6 +11,7 @@ import helpers.templates_to_publish as templates
 import config_files.ewb_bot as ewb_config
 
 import helpers.teams_helper as teams_helper
+import helpers.gsheet_helper as gsheet_helper
 
 class TournamentsSheduledTasks(commands.Cog):
     def __init__(self, ewb):
@@ -65,17 +66,26 @@ class TournamentsSheduledTasks(commands.Cog):
             if x == "ranking":
                 tournament = self.ewb.ranking
             new_registrations_list = tournament.get_new_registrations_list()
-            # print(tournament.config_file.registrations_is_open)
             if tournament.config_file.registrations_is_open:
                 if new_registrations_list:
-                    for x in new_registrations_list:
-                        o = await teams_helper.search_referent(self, x['ewb_Ref1'])
-                        print(o)
-                        await channel.send(o)
+                    for team in new_registrations_list:
+                        ref = await teams_helper.search_referent(self, team['ewb_Ref1'])
+                        if len(ref) == 1:
+                            for user in ref:
+                                await channel.send(f"{user.mention}")
+                        else:
+                            await channel.send(f"Trop de correspondance pour Ref1")
+                        if team['ewb_Ref2'] != "":
+                            ref = await teams_helper.search_referent(self, team['ewb_Ref2'])
+                            if len(ref) == 1:
+                                for user in ref:
+                                    await channel.send(f"{user.mention}")
+                            else:
+                                await channel.send(f"Trop de correspondance pour Ref2")
                     to_show = templates.create_registrations_embed(self, tournament, new_registrations_list)
                     for x in to_show:
-                        
                         await channel.send(embed = x)
+                        await channel.send("Cet affichage vous confirme que votre inscription est reçue. **Comprenez bien qu'elle doit être confirmée et validée**, dans les plus bref délais ! Sans quoi elle ne sera pas prise en compte")
                 else:
                     print(f"{tournament} registrations : {len(tournament.registrations_teams_list)} no new registration")
             print(tournament)

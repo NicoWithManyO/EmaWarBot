@@ -36,7 +36,7 @@ def create_registrations_embed(self, tournament, teams_list):
         if x['ewb_State'] != "":
             state = x['ewb_State']
         else:
-            state = "Inscription reçue\nLe Staff reviendra vers vous pour la validation"
+            state = "Inscription reçue"
         embed = discord.Embed(title = title, description = f"```{state}```", color = color)
         if x['ewb_urlBlason'] != "":
             embed.set_thumbnail(url=x['ewb_urlBlason'])
