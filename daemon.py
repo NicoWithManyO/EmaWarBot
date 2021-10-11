@@ -5,6 +5,7 @@ from discord.ext import commands
 import config_files.external_connectors.coc_api as coc_api
 
 import config_files.ewb_bot as ewb_config
+import config_files.organization as orga
 
 import helpers.boot_helper as boot_helper
 
@@ -18,6 +19,7 @@ class Daemon(commands.Bot):
                     case_insensitive = ewb_config.case_insensitive)
         
     async def on_ready(self):
+        orga.ema_guild = self.get_guild(269040955380858880)
         # boot sequence
         await boot_helper.set_running_env(self)
         await boot_helper.get_cogs_list_from_dir(self)

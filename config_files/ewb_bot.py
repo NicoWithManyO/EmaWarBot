@@ -1,6 +1,8 @@
 
 import discord
 
+temp = 859594625836122122
+
 # base options
 prefix = ["ema.", "Ema.", "ecup.", "ranking.", "rkg", "ecl."]
 # prefix = ["dev.", "ecup.", "ranking.", "ecl."]
@@ -17,3 +19,21 @@ running_env = None
 cogs_dir = "cogs"
 
 registrations_log_channel = 885964629157752862
+
+
+
+timing_spam_detect = 10
+limit_spam_detect = 5
+timing_raid_detect = 20
+limit_raid_detect = 3
+
+# welcome_valid_message = 865192377210372097
+# language_selector_message = 865192378478755892
+# th_selector_message = 865192379832598548
+
+welcome_valid_message = 894008854042542110
+language_selector_message = 894008855321784390
+th_selector_message = 894008857016291368
+
+server_log_channel = 856190295452549130
+ewb_boot_channel = 860679276793036811

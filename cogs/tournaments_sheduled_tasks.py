@@ -34,7 +34,7 @@ class TournamentsSheduledTasks(commands.Cog):
     @commands.command()
     @commands.has_permissions(manage_messages = True)
     async def temp(self, ctx, *value):
-        print(await teams_helper.search_referent(self, ctx, value))
+        print(await teams_helper.search_referent(self, value))
     
     
     def start_registrations_detection(self):
@@ -55,7 +55,7 @@ class TournamentsSheduledTasks(commands.Cog):
             await ctx.send(self.stop_registrations_detection())
             
     
-    @tasks.loop(seconds=30)
+    @tasks.loop(seconds=15)
     async def registrations_watcher(self):
         tournament = None
         channel = self.ewb.get_channel(ewb_config.registrations_log_channel)
@@ -68,8 +68,13 @@ class TournamentsSheduledTasks(commands.Cog):
             # print(tournament.config_file.registrations_is_open)
             if tournament.config_file.registrations_is_open:
                 if new_registrations_list:
+                    for x in new_registrations_list:
+                        o = await teams_helper.search_referent(self, x['ewb_Ref1'])
+                        print(o)
+                        await channel.send(o)
                     to_show = templates.create_registrations_embed(self, tournament, new_registrations_list)
                     for x in to_show:
+                        
                         await channel.send(embed = x)
                 else:
                     print(f"{tournament} registrations : {len(tournament.registrations_teams_list)} no new registration")
