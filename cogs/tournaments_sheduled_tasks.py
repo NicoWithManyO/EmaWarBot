@@ -16,7 +16,7 @@ import helpers.gsheet_helper as gsheet_helper
 class TournamentsSheduledTasks(commands.Cog):
     def __init__(self, ewb):
         self.ewb = ewb
-        # self.start_registrations_detection()
+        self.start_registrations_detection()
         # self.registrations_watcher.start()
         
         # tournaments init
@@ -38,15 +38,7 @@ class TournamentsSheduledTasks(commands.Cog):
         print(value)
         ref = await teams_helper.search_referent(self, ' '.join(value))
         print(ref)
-
-# Attributes
-# avatar
-# bot
-# discriminator
-# display_name
-# mention
-# name
-    
+        print(ref.avatar_url)
     
     def start_registrations_detection(self):
         self.registrations_watcher.start()
