@@ -56,7 +56,7 @@ class TournamentsSheduledTasks(commands.Cog):
             await ctx.send(self.stop_registrations_detection())
             
     
-    @tasks.loop(seconds=15)
+    @tasks.loop(seconds=60)
     async def registrations_watcher(self):
         tournament = None
         channel = self.ewb.get_channel(ewb_config.registrations_log_channel)

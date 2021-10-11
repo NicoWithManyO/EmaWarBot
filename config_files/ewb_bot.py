@@ -3,6 +3,8 @@ import discord
 
 temp = 859594625836122122
 
+lock = False
+
 # base options
 prefix = ["ema.", "Ema.", "ecup.", "ranking.", "rkg.", "ecl."]
 # prefix = ["dev.", "ecup.", "ranking.", "ecl."]
