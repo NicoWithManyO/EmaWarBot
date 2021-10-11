@@ -35,8 +35,11 @@ class TournamentsSheduledTasks(commands.Cog):
     @commands.command()
     @commands.has_permissions(manage_messages = True)
     async def temp(self, ctx, *value):
+        print(value)
         ref = await teams_helper.search_referent(self, ' '.join(value))
+        print(ref)
         for x in ref:
+            print(discord.__version__)
             await ctx.send(x.name)
             await ctx.send(x.display_name)
             await ctx.send(x.display_avatar)
