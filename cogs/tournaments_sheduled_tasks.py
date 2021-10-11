@@ -73,7 +73,8 @@ class TournamentsSheduledTasks(commands.Cog):
                         await channel.send(embed = x)
                 else:
                     print(f"{tournament} registrations : {len(tournament.registrations_teams_list)} no new registration")
-            print(tournament.registrations_teams_list)
+            print(tournament)
+            # print(tournament.registrations_teams_list)
 
 def setup(bot):
     bot.add_cog(TournamentsSheduledTasks(bot))

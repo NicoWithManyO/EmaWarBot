@@ -36,7 +36,7 @@ def create_registrations_embed(self, tournament, teams_list):
         if x['ewb_State'] != "":
             state = x['ewb_State']
         else:
-            state = "Inscription reçue"
+            state = "Inscription reçue\nLe Staff reviendra vers vous pour la validation"
         embed = discord.Embed(title = title, description = f"```{state}```", color = color)
         if x['ewb_urlBlason'] != "":
             embed.set_thumbnail(url=x['ewb_urlBlason'])
@@ -54,8 +54,8 @@ def create_registrations_embed(self, tournament, teams_list):
             embed.add_field(name=x['ewb_Ref2'], value="Référent 2", inline= True)
         if x['ewb_Language'] != "":
             embed.add_field(name=x['ewb_Language'], value="Langue de prédilection", inline= False)
-        if state == "Inscription reçue":
-            embed.add_field(name="Attention", value=f"L'inscription est reçue, mais pas encore **validée par le Staff**, nous reviendrons vers vous, merci de vérifier & confirmer/corriger, si nécessaire les informations fournies", inline= False)
+        # if state == "Inscription reçue":
+        #     embed.add_field(name="Attention", value=f"L'inscription est reçue, mais pas encore **validée par le Staff**, nous reviendrons vers vous, merci de vérifier & confirmer/corriger, si nécessaire les informations fournies", inline= False)
         response.append(embed)
     return response
     
