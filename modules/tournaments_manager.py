@@ -38,7 +38,6 @@ class TournamentsManager():
 
     def get_registrations_teams_list(self):
         self.registrations_teams_list = gsheet.get_registrations(self)
-        self.check_number_of_registrations()
         return self.registrations_teams_list
 
     def get_new_registrations_list(self):
@@ -51,6 +50,11 @@ class TournamentsManager():
         if len(response) == 0 :
             response = False
         return response
+
+    def check_all_referents(self):
+        self.registrations_teams_list = gsheet.get_registrations(self)
+        for x in self.registrations_teams_list:
+            print(x)
             
         
         

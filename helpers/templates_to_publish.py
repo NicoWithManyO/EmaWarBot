@@ -6,7 +6,7 @@ import random
 import config_files.ewb_bot as ewb_config
 import config_files.organization as orga
 
-import config_files.emojis as emojisemojisemojis
+import config_files.emojis as emojis
 
 def random_color():
     return random.randint(0, 16777215)

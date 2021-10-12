@@ -12,4 +12,3 @@ async def search_referent(self, search):
         else:
             pass
     return finded
-
