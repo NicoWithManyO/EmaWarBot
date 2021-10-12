@@ -9,10 +9,9 @@ def select_tournament(self, cmd):
 
 def teams_selector(self, querry, data, search_author):
     to_show = []
-    if querry == None:
-        print("none")
+    if querry == "":
         for team in data:
-            if team['ewb_Ref1'] in str(search_author) or team['ewb_Ref2'] in str(search_author):
+            if str(search_author) in team['ewb_Ref1'] or team['ewb_Ref1'] in str(search_author) or str(search_author) in team['ewb_Ref2']:
                 to_show.append(team)
     else:
         try:
