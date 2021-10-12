@@ -50,7 +50,11 @@ class TournamentsManager():
         if len(response) == 0 :
             response = False
         return response
-        
+    
+    def check_registrations_data(self):
+        self.registrations_teams_list = gsheet.get_registration(self)
+        for team in self.registrations_teams_list:
+            print(team)
 # CLASS ENFANTS
 class Ranking(TournamentsManager):
     def __init__(self):

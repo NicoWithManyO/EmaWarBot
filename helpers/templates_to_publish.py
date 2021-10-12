@@ -6,6 +6,8 @@ import random
 import config_files.ewb_bot as ewb_config
 import config_files.organization as orga
 
+import helpers.ingame_helper as ingame
+
 import config_files.emojis as emojis
 
 def random_color():
@@ -27,7 +29,7 @@ def create_std_embed(self, ctx, tiny = False, color = None, title = None, desc =
             embed.set_author(name=author, icon_url= ctx.guild.icon)
     return embed
 
-def create_registrations_embed(self, tournament, teams_list):
+async def create_registrations_embed(self, tournament, teams_list):
     response = []
     for x in teams_list:
         color = tournament.config_file.color
@@ -45,9 +47,14 @@ def create_registrations_embed(self, tournament, teams_list):
             state = x['ewb_FinalState']
         else:
             state = "Inscription reçue"
+        try:
+            clan = await ingame.check_clan_tag(self, x['ewb_Tag'])
+            clan = f"{emojis.clan_ok} **{clan.tag} | [{clan.name}]({clan.share_link})**\nWarlog {clan.public_war_log} | {clan.type} | {clan.required_trophies}tr"
+        except:
+            clan = f"{emojis.clan_nok} {x['ewb_Tag']} Tag incorrect"
         embed.set_footer(text=f"Inscription reçue le {x['HORRODATEUR']}", icon_url=ewb_config.bot_avatar)
         embed.set_author(name=tournament, icon_url= tournament.tournament_avatar, url=tournament.config_file.suivi_file)
-        embed.add_field(name=f"Roster : {x['ewb_Roster']}", value=f"**Tag clan : {x['ewb_Tag']}** | Warlog\nClan Name", inline= False)
+        embed.add_field(name=f"Roster : {x['ewb_Roster']}", value=f"{clan}", inline= False)
         embed.add_field(name=x['ewb_Ref1'], value="Référent 1", inline= True)
         if x['ewb_Ref2'] != "":
             embed.add_field(name=x['ewb_Ref2'], value="Référent 2", inline= True)
