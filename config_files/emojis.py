@@ -62,3 +62,5 @@ on_is_false = "<:on_is_false:849993922435612722>"
 
 clan_nok = "<:red_clan:848573000990720031>"
 clan_ok = "<:green_clan:849357844633747466>"
+ref_ok = "<:discord:848504368226369536>"
+ref_nok = "<:discordred:848505685498658826>"

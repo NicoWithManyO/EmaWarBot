@@ -8,6 +8,8 @@ import config_files.organization as orga
 
 import helpers.ingame_helper as ingame
 
+import helpers.teams_helper as teams_helper
+
 import config_files.emojis as emojis
 
 def random_color():
@@ -52,12 +54,37 @@ async def create_registrations_embed(self, tournament, teams_list):
             clan = f"{emojis.clan_ok} **{clan.tag} | [{clan.name}]({clan.share_link})**\nWarlog {clan.public_war_log} | {clan.type} | {clan.required_trophies}tr"
         except:
             clan = f"{emojis.clan_nok} {x['ewb_Tag']} Tag incorrect"
+        ref1 = None
+        try:
+            ref1 = await teams_helper.search_referent(self, x['ewb_Ref1'])            
+        except:
+            pass
+        if not ref1:
+            ref1 = f"{emojis.ref_nok} {x['ewb_Ref1']}"
+        ref2 = None
+        if x['ewb_Ref2'] != "":
+            try:
+                ref2 = await teams_helper.search_referent(self, x['ewb_Ref2'])
+            except:
+                ref2 = f"{emojis.ref_nok} {x['ewb_Ref2']}"
+        if not ref2:
+            ref2 = f"{emojis.ref_nok} {x['ewb_Ref2']}"
+        if len(ref1) == 1:
+            for user in ref1:
+                ref1 = f"{emojis.ref_ok} {user}"
+        if x['ewb_Ref2'] != "":
+            if (ref2):
+                if len(ref2) == 1:
+                    for user in ref2:
+                        ref2 = f"{emojis.ref_ok} {user}"
+
+
         embed.set_footer(text=f"Inscription reçue le {x['HORRODATEUR']}", icon_url=ewb_config.bot_avatar)
         embed.set_author(name=tournament, icon_url= tournament.tournament_avatar, url=tournament.config_file.suivi_file)
         embed.add_field(name=f"Roster : {x['ewb_Roster']}", value=f"{clan}", inline= False)
-        embed.add_field(name=x['ewb_Ref1'], value="Référent 1", inline= True)
+        embed.add_field(name=ref1, value="Référent 1", inline= True)
         if x['ewb_Ref2'] != "":
-            embed.add_field(name=x['ewb_Ref2'], value="Référent 2", inline= True)
+            embed.add_field(name=ref2, value="Référent 2", inline= True)
         if x['ewb_Language'] != "":
             embed.add_field(name=x['ewb_Language'], value="Langue de prédilection", inline= False)
         response.append(embed)
