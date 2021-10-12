@@ -34,6 +34,7 @@ def create_std_embed(self, ctx, tiny = False, color = None, title = None, desc =
 async def create_registrations_embed(self, tournament, teams_list):
     response = []
     for x in teams_list:
+        row = x['ewb_ID'] + 1
         color = tournament.config_file.color
         title = f"`{x['ewb_ID']}`. {x['ewb_NomEquipe']}"
         if x['ewb_FinalState'] != "":
