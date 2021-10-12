@@ -10,6 +10,8 @@ import helpers.gsheet_helper as gsheet
 import helpers.ingame_helper as ingame
 import validators
 
+import helpers.teams_helper as teams_helper
+
 import config_files.emojis as emojis
 
 class TeamsManager(commands.Cog):
@@ -32,15 +34,20 @@ class TeamsManager(commands.Cog):
 
     @commands.command()
     async def change(self, ctx, id_team:int, object_to_change, *new_value):
-        
-        new_value = str(' '.join(new_value)).lower()
         tournament = tournaments_helper.select_tournament(self, ctx.message.content)
         data = tournament.get_registrations_teams_list()
         teams_to_show = tournaments_helper.teams_selector(self, id_team, data, ctx.message.author)
+        if new_value[0].startswith("<@!"):
+            new_value = new_value[0].replace("<@!","").replace(">","")
+            new_value = int(new_value)
+            new_member = discord.utils.get(ctx.guild.members,id=int(new_value))
+            new_value = new_member.name
+            print(new_value)
+        else:        
+            new_value = str(' '.join(new_value))
         if teams_to_show:
             for team in teams_to_show:
                 row = team['ewb_ID'] + 1
-                print(team)
                 if object_to_change == "blason":
                     if validators.url(new_value):
                         old = team['ewb_urlBlason']
@@ -57,16 +64,22 @@ class TeamsManager(commands.Cog):
                     except:
                         await ctx.send(f"> [ewb] {emojis.clan_nok} `{new_value}` ne semble pas être un tag valide")
                         return
+                if object_to_change.lower() == "ref1":
+                    target = f"AS{row}"
+                    old = team['ewb_Ref1']
+                if object_to_change.lower() == "ref2":
+                    target = f"AT{row}"
+                    old = team['ewb_Ref2']  
 
             await ctx.send(f"> [ewb] `{tournament}` Modification de **{object_to_change}** pour **{team['ewb_NomEquipe']}** (ancien : <{old}>)")
-            gsheet.set_data_team_to_sheet(tournament, target, new_value)
+            gsheet.set_data_team_to_sheet(tournament, target, str(new_value))
             data = tournament.get_registrations_teams_list()
             teams_to_show = tournaments_helper.teams_selector(self, id_team, data, ctx.message.author)
             embeds = await templates.create_registrations_embed(self, tournament, teams_to_show)
             for x in embeds:
-                await ctx.send(embed = x)
+                first_response = await ctx.send(embed = x)
         else:
-            await ctx.send("o")
+            pass
             
 def setup(bot):
     bot.add_cog(TeamsManager(bot))
