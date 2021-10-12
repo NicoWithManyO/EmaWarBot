@@ -17,6 +17,7 @@ class TeamsManager(commands.Cog):
         self.ewb = ewb
 
     @commands.command()
+    @commands.has_permissions(manage_messages = True)
     async def voir(self, ctx, *id_team):
         id_team = ' '.join(id_team)
         tournament = tournaments_helper.select_tournament(self, ctx.message.content)
