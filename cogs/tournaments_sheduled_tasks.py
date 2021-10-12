@@ -16,7 +16,7 @@ import helpers.gsheet_helper as gsheet_helper
 class TournamentsSheduledTasks(commands.Cog):
     def __init__(self, ewb):
         self.ewb = ewb
-        # self.start_registrations_detection()
+        self.start_registrations_detection()
         
         # tournaments init
         for x in tournaments_config.active_tournaments:
