@@ -1,7 +1,6 @@
 
-from discord.ext import commands
-
 import discord
+from discord.ext import commands
 
 import helpers.templates_to_publish as templates
 import config_files.ewb_bot as ewb_config

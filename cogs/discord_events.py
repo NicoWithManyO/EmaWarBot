@@ -9,16 +9,8 @@ import config_files.ewb_bot as ewb_config
 import data.watched_id_list as watched_id_list
 import config_files.emojis as emojis
 import helpers.templates_to_publish as templates
-# from googletrans import Translator
-# translator = Translator()
 import cogs.bot_admin as bot_admin
 import helpers.translator_helper as translator_helper
-
-# from googletrans import Translator
-# translator = Translator()
-# def translate_data(target_lg, *data):
-    # data = ' '.join(data)
-    # return translator.translate(data, dest=target_lg)
 
 class DiscordEvents(commands.Cog):
     """Description"""
@@ -86,18 +78,13 @@ class DiscordEvents(commands.Cog):
         
         @ewb.event
         async def on_raw_message_delete(before):
-            # print(before.message_id.content)
-            # print(discord.fetch_message(before.message_id))
-            # print(payload)
             if not before.author.bot:
                 await channel_to_log.send(f"`[ewb]` `{before.channel_id}` {emojis.remove} ")
-            # await channel_to_log.send(f"`[ewb]` {emojis.remove} `{before.author}` {emojis.right_arrow} ~~`{before.content}`~~")
         
         @ewb.event
         async def on_message_edit(before, after):
             if not before.author.bot:
                 await channel_to_log.send(f"`[ewb]` `{before.channel}` {emojis.remove} `{before.author}` {emojis.right_arrow} ~~`{before.content}`~~")
-                # await channel_to_log.send(f"`[ewb]` `{after.channel}` {emojis.add}  `{before.author}` {emojis.right_arrow} `{after.content}`")
 
         @ewb.event
         async def on_raw_reaction_add(payload):
@@ -199,9 +186,7 @@ class DiscordEvents(commands.Cog):
                     target_language = "hi"
                 if len(reaction.message.content) < 2:
                     to_translate = reaction.message.embeds[0].description.replace(emojis.down, "")
-                    # channel_to_translate = ewb.get_channel(reaction.message.channel.id)
                     response = translator_helper.translate_data(target_language, to_translate)
-                    # await channel_to_translate.send(embed = await templates.standard_head_embed(self, tiny = True, desc = f"{reaction.emoji}\t{str(response.text)}"))
                     await channel_to_translate.send(embed = await templates.standard_head_embed(self, tiny = True, desc = f"{reaction.emoji}\t{str(response.text.replace('<@! ', '<@!').replace('<# ', '<#').replace('<@ ','<@').replace('<@& ','<@'))}"))
                     return
                 else:

@@ -30,14 +30,14 @@ class TournamentsSheduledTasks(commands.Cog):
             if x == "ecl":
                 self.ewb.ecl = tournaments_manager.Ecl()
                 print(self.ewb.ecl)
-    
+
     def start_registrations_detection(self):
         self.registrations_watcher.start()
         return f"[ewb] RegistrationsWatcher `on`"
     def stop_registrations_detection(self):
         self.registrations_watcher.stop()
         return f"[ewb] RegistrationsWatcher `off`"
-    
+
     @commands.command()
     @commands.has_permissions(manage_messages = True)
     async def regWatcher(self, ctx, value):
@@ -45,8 +45,7 @@ class TournamentsSheduledTasks(commands.Cog):
             await ctx.send(self.start_registrations_detection())
         elif value == "off".lower():
             await ctx.send(self.stop_registrations_detection())
-            
-    
+
     @tasks.loop(seconds=60)
     async def registrations_watcher(self):
         tournament = None
