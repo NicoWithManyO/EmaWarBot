@@ -7,11 +7,11 @@ def select_tournament(self, cmd):
     if cmd.startswith("rkg") or cmd.startswith("ranking"):
         return self.ewb.ranking
 
-def teams_selector(self, querry, data, author):
+def teams_selector(self, querry, data, search_author):
     to_show = []
-    if querry == None:
+    if querry == "":
         for team in data:
-            if team['ewb_Ref1'] in str(author) or str(author) in team['ewb_Ref1']:
+            if str(search_author) in team['ewb_Ref1'] or team['ewb_Ref1'] in str(search_author) or str(search_author) in team['ewb_Ref2']:
                 to_show.append(team)
     else:
         try:

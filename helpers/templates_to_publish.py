@@ -30,7 +30,6 @@ def create_std_embed(self, ctx, tiny = False, color = None, title = None, desc =
 def create_registrations_embed(self, tournament, teams_list):
     response = []
     for x in teams_list:
-        print(x)
         color = tournament.config_file.color
         title = f"`{x['ewb_ID']}`. {x['ewb_NomEquipe']}"
         if x['ewb_State'] != "":
@@ -54,8 +53,6 @@ def create_registrations_embed(self, tournament, teams_list):
             embed.add_field(name=x['ewb_Ref2'], value="Référent 2", inline= True)
         if x['ewb_Language'] != "":
             embed.add_field(name=x['ewb_Language'], value="Langue de prédilection", inline= False)
-        # if state == "Inscription reçue":
-        #     embed.add_field(name="Attention", value=f"L'inscription est reçue, mais pas encore **validée par le Staff**, nous reviendrons vers vous, merci de vérifier & confirmer/corriger, si nécessaire les informations fournies", inline= False)
         response.append(embed)
     return response
     
