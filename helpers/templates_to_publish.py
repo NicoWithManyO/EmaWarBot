@@ -82,6 +82,18 @@ async def create_registrations_embed(self, tournament, teams_list):
         embed.set_footer(text=f"Inscription reçue le {x['HORRODATEUR']}", icon_url=ewb_config.bot_avatar)
         embed.set_author(name=tournament, icon_url= tournament.tournament_avatar, url=tournament.config_file.suivi_file)
         embed.add_field(name=f"Roster : {x['ewb_Roster']}", value=f"{clan}", inline= False)
+        print(tournament.name)
+        if tournament.name == "Ecup":
+            if x['ewb_Ligue'] == "W":
+                ligue = "Warden"
+            if x['ewb_Ligue'] == "Q":
+                ligue = "Queen"
+            if x['ewb_Ligue'] == "K":
+                ligue = "K"
+            if x['ewb_Ligue'] == "R":
+                ligue = "Royal"
+            groupe = x['ewb_Groupe']
+            embed.add_field(name=f"Ligue {ligue}", value=f"Groupe {groupe}", inline= False)
         embed.add_field(name=ref1, value="Référent 1", inline= True)
         if x['ewb_Ref2'] != "":
             embed.add_field(name=ref2, value="Référent 2", inline= True)
