@@ -32,8 +32,8 @@ def create_registrations_embed(self, tournament, teams_list):
     for x in teams_list:
         color = tournament.config_file.color
         title = f"`{x['ewb_ID']}`. {x['ewb_NomEquipe']}"
-        if x['ewb_State'] != "":
-            state = x['ewb_State']
+        if x['ewb_FinalState'] != "":
+            state = x['ewb_FinalState']
         else:
             state = "Inscription reçue"
         embed = discord.Embed(title = title, description = f"```{state}```", color = color)
@@ -41,8 +41,8 @@ def create_registrations_embed(self, tournament, teams_list):
             embed.set_thumbnail(url=x['ewb_urlBlason'])
         else:
             embed.set_thumbnail(url=tournament.tournament_avatar)
-        if x['ewb_State'] != "":
-            state = x['ewb_State']
+        if x['ewb_FinalState'] != "":
+            state = x['ewb_FinalState']
         else:
             state = "Inscription reçue"
         embed.set_footer(text=f"Inscription reçue le {x['HORRODATEUR']}", icon_url=ewb_config.bot_avatar)
