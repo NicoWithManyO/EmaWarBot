@@ -19,23 +19,44 @@ class TeamsManager(commands.Cog):
         self.ewb = ewb       
 
     @commands.command()
-    @commands.has_permissions(manage_messages = True)
     async def voir(self, ctx, *id_team):
         id_team = ' '.join(id_team)
         tournament = tournaments_helper.select_tournament(self, ctx.message.content)
         data = tournament.get_registrations_teams_list()
         teams_to_show = tournaments_helper.teams_selector(self, id_team, data, ctx.message.author)
-        for x in teams_to_show:
-            print(x['Validée'])
-            print(type(x['Validée']))
         if teams_to_show:
             embeds = await templates.create_registrations_embed(self, tournament, teams_to_show)
             for x in embeds:
                 await ctx.send(embed = x)
         else:
             await ctx.send("> [ewb] Pas de résultat")
+    
+    @commands.command()
+    async def liste(self, ctx, roster=None):
+        mixt = []
+        full = []
+        tournament = tournaments_helper.select_tournament(self, ctx.message.content)
+        data = tournament.get_registrations_teams_list()
+        for team in data:
+            current = f"`{team['ewb_ID']}`. {team['ewb_NomEquipe']}"
+            if team['Validée'] != "TRUE":
+                if team['ewb_Roster'] == "Mixt":
+                    mixt.append(current)
+                if team['ewb_Roster'] == "Full":
+                    full.append(current)
+        await ctx.send(f"> [ewb] `{tournament}`")
+        if not roster:
+            await ctx.send(f"> {len(mixt)} **Mixt** {' '.join(mixt)}")
+            await ctx.send(f"> {len(full)} **Full** {' '.join(full)}")
+        elif roster.lower() == "m":
+            await ctx.send(f"> {len(mixt)} **Mixt** {' '.join(mixt)}")
+        else: 
+            if roster.lower() == "f":
+                await ctx.send(f"> {len(full)} **Full** {' '.join(full)}")
+            
 
     @commands.command()
+    @commands.has_permissions(manage_messages = True)
     async def change(self, ctx, id_team:int, object_to_change, *new_value):
         tournament = tournaments_helper.select_tournament(self, ctx.message.content)
         data = tournament.get_registrations_teams_list()

@@ -36,7 +36,11 @@ async def create_registrations_embed(self, tournament, teams_list):
     for x in teams_list:
         row = x['ewb_ID'] + 1
         color = tournament.config_file.color
-        title = f"`{x['ewb_ID']}`. {x['ewb_NomEquipe']}"
+        print(x['ewb_FinalState'])
+        if x['ewb_FinalState'] == "Validée":
+            title = f"`{x['ewb_ID']}`. {x['ewb_NomEquipe']} {emojis.valid}"
+        else:
+            title = f"`{x['ewb_ID']}`. {x['ewb_NomEquipe']}"
         if x['ewb_FinalState'] != "":
             state = x['ewb_FinalState']
         else:
