@@ -13,8 +13,8 @@ date = "du 15/10/21 au 26/11/21"
 start_date = "15/10/2021"
 
 emo = "🔶"
-referent_role = "🔶+Référent {name}"
-season_role = f"🔶+s{current_season}"
+referent_role = "🔶+Référent Ranking"
+season_role = f"🔶+s20"
 color = discord.Color.dark_green()
 
 suivi_file = ""

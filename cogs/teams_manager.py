@@ -32,6 +32,13 @@ class TeamsManager(commands.Cog):
             await ctx.send("> [ewb] Pas de résultat")
     
     @commands.command()
+    async def cherche(self, *search):
+        # await async def search_referent(self, search):
+        o = ' '.join(*search)
+        await gsheet.teams_helper.search_referent(self, search)
+    
+    
+    @commands.command()
     async def liste(self, ctx, roster=None):
         mixt = []
         full = []

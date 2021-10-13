@@ -11,6 +11,7 @@ import helpers.ingame_helper as ingame
 import helpers.teams_helper as teams_helper
 
 import config_files.emojis as emojis
+import config_files.organization as orga
 
 def random_color():
     return random.randint(0, 16777215)
@@ -33,6 +34,8 @@ def create_std_embed(self, ctx, tiny = False, color = None, title = None, desc =
 
 async def create_registrations_embed(self, tournament, teams_list):
     response = []
+    ref_role = discord.utils.get(orga.ema_guild.roles,name=f"{tournament.config_file.referent_role}")
+    season_role = discord.utils.get(orga.ema_guild.roles,name=f"{tournament.config_file.season_role}")
     for x in teams_list:
         row = x['ewb_ID'] + 1
         color = tournament.config_file.color
@@ -77,11 +80,23 @@ async def create_registrations_embed(self, tournament, teams_list):
         if len(ref1) == 1:
             for user in ref1:
                 ref1 = f"{emojis.ref_ok} {user}"
+                if x['Validée'] == "TRUE":
+                    await user.add_roles(ref_role)
+                    await user.add_roles(season_role)
+                if x['Validée'] == "FALSE":
+                    await user.remove_roles(ref_role)
+                    await user.remove_roles(season_role)
         if x['ewb_Ref2'] != "":
             if (ref2):
                 if len(ref2) == 1:
                     for user in ref2:
                         ref2 = f"{emojis.ref_ok} {user}"
+                        if x['Validée'] == "TRUE":
+                            await user.add_roles(ref_role)
+                            await user.add_roles(season_role)
+                        if x['Validée'] == "FALSE":
+                            await user.remove_roles(ref_role)
+                            await user.remove_roles(season_role)
         if x['ewb_Roster'] == "Mixt":
             roster = f"{emojis.mixt}ixt"
         if x['ewb_Roster'] == "Full":

@@ -13,7 +13,7 @@ date = "du 17/10/21 au 28/11/21"
 start_date = "17/10/2021"
 
 emo = "🔘"
-referent_role = "🔘+Référent {name}"
+referent_role = "🔘+Référent Ecup"
 season_role = f"🔘+s{current_season}"
 color = discord.Color.blue()
 
