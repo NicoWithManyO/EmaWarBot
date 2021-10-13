@@ -16,7 +16,7 @@ import config_files.emojis as emojis
 
 class TeamsManager(commands.Cog):
     def __init__(self, ewb):
-        self.ewb = ewb
+        self.ewb = ewb       
 
     @commands.command()
     @commands.has_permissions(manage_messages = True)
@@ -25,6 +25,9 @@ class TeamsManager(commands.Cog):
         tournament = tournaments_helper.select_tournament(self, ctx.message.content)
         data = tournament.get_registrations_teams_list()
         teams_to_show = tournaments_helper.teams_selector(self, id_team, data, ctx.message.author)
+        for x in teams_to_show:
+            print(x['Validée'])
+            print(type(x['Validée']))
         if teams_to_show:
             embeds = await templates.create_registrations_embed(self, tournament, teams_to_show)
             for x in embeds:
@@ -42,9 +45,9 @@ class TeamsManager(commands.Cog):
             new_value = int(new_value)
             new_member = discord.utils.get(ctx.guild.members,id=int(new_value))
             new_value = new_member.name
-            print(new_value)
         else:        
             new_value = str(' '.join(new_value))
+        print(new_value)
         if teams_to_show:
             for team in teams_to_show:
                 row = team['ewb_ID'] + 1
@@ -69,7 +72,22 @@ class TeamsManager(commands.Cog):
                     old = team['ewb_Ref1']
                 if object_to_change.lower() == "ref2":
                     target = f"AT{row}"
-                    old = team['ewb_Ref2']  
+                    old = team['ewb_Ref2']
+                
+                if object_to_change.lower() == "valid":
+                    target = f"EA{row}"
+                    old = team['ewb_Valid']
+                    if new_value == "+":
+                        new_value = "TRUE"
+                    if new_value == "-":
+                        new_value = "FALSE"
+                if object_to_change.lower() == "cancel":
+                    target = f"EB{row}"
+                    old = team['ewb_Valid']
+                    if new_value == "+":
+                        new_value = "TRUE"
+                    if new_value == "-":
+                        new_value = "FALSE"
 
             await ctx.send(f"> [ewb] `{tournament}` Modification de **{object_to_change}** pour **{team['ewb_NomEquipe']}** (ancien : <{old}>)")
             gsheet.set_data_team_to_sheet(tournament, target, str(new_value))
