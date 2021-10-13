@@ -18,11 +18,44 @@ class TeamsManager(commands.Cog):
     def __init__(self, ewb):
         self.ewb = ewb       
 
+    
+    @commands.command(aliases = ["mbr", "user", "member"])
+    async def membre(self, ctx, *utilisateur):
+        """Retourne les utilisateur contenant la chaine recherchée
+        
+        Fournir un morceau de nom ou un discriminator (ex. #8020) à rechercher
+        - ema.membre nicowithmany
+        - ema.membre 8020
+        (La recherche n'est pas sensible à la casse)
+        """        
+        o = 0
+        querry = ' '.join(utilisateur)
+        if len(querry) < 4:
+            await ctx.send("[ewb] 4 caracètres mini. pour la recherche")
+            return
+        matched = await teams_helper.search_discord_user(self, querry)
+        if len(matched) == 0:
+            await ctx.send("[ewb] Pas de résultat !")
+            return
+        if len(matched) == 1:
+            await ctx.send("[ewb] Quick User Checker\n[ewb] Utilisateur trouvé :")
+            await ctx.send(f"> {emojis.discord} {matched[0].mention} `{matched[0]}` {matched[0].id}")
+        else:
+            await ctx.send(f"[ewb] Quick User Checker\n[ewb] {len(matched)} résultats")
+            for finded in matched:
+                o = o + 1
+                await ctx.send(f"> {emojis.discord} `{o}.` {finded.mention} `{finded}` {finded.id}")
+    
     @commands.command()
     async def voir(self, ctx, *id_team):
         id_team = ' '.join(id_team)
         tournament = tournaments_helper.select_tournament(self, ctx.message.content)
         data = tournament.get_registrations_teams_list()
+        # if tournament.name == "Ecup":
+        #     print(ctx.message.channel.id)
+        #     for temp in data:
+        #         if temp['ewb_RoomID'] == ctx.message.channel.id:
+        #             id_team == int(temp['ewb_RoomID'])
         teams_to_show = tournaments_helper.teams_selector(self, id_team, data, ctx.message.author)
         if teams_to_show:
             embeds = await templates.create_registrations_embed(self, tournament, teams_to_show)
@@ -40,6 +73,9 @@ class TeamsManager(commands.Cog):
     
     @commands.command()
     async def liste(self, ctx, roster=None):
+        print(ctx.message.channel)
+        # print(ctx.message.channel.id)
+        print(ctx.channel.id)
         mixt = []
         full = []
         tournament = tournaments_helper.select_tournament(self, ctx.message.content)
@@ -67,6 +103,11 @@ class TeamsManager(commands.Cog):
     async def change(self, ctx, id_team:int, object_to_change, *new_value):
         tournament = tournaments_helper.select_tournament(self, ctx.message.content)
         data = tournament.get_registrations_teams_list()
+        # if tournament.name == "Ecup":
+        #     print(ctx.message.channel.id)
+        #     for temp in data:
+        #         if temp['ewb_RoomID'] == ctx.message.channel.id:
+        #             id_team == int(temp['ewb_RoomID'])
         teams_to_show = tournaments_helper.teams_selector(self, id_team, data, ctx.message.author)
         if new_value[0].startswith("<@!"):
             new_value = new_value[0].replace("<@!","").replace(">","")
