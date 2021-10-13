@@ -82,7 +82,7 @@ class TeamsManager(commands.Cog):
         data = tournament.get_registrations_teams_list()
         for team in data:
             current = f"`{team['ewb_ID']}`. {team['ewb_NomEquipe']}"
-            if team['Validée'] != "TRUE":
+            if team['Validée'] != "TRUE" and team['Refusée'] == "FALSE":
                 if team['ewb_Roster'] == "Mixt":
                     mixt.append(current)
                 if team['ewb_Roster'] == "Full":

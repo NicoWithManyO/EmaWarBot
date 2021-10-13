@@ -3,6 +3,8 @@ import discord
 
 import random
 
+import validators
+
 import config_files.ewb_bot as ewb_config
 import config_files.organization as orga
 
@@ -49,7 +51,7 @@ async def create_registrations_embed(self, tournament, teams_list):
         else:
             state = "Inscription reçue"
         embed = discord.Embed(title = title, description = f"```{state}```", color = color)
-        if x['ewb_urlBlason'] != "":
+        if validators.url(x['ewb_urlBlason']):
             embed.set_thumbnail(url=x['ewb_urlBlason'])
         else:
             embed.set_thumbnail(url=tournament.tournament_avatar)
