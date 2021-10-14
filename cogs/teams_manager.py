@@ -72,6 +72,7 @@ class TeamsManager(commands.Cog):
     #     await gsheet.teams_helper.search_referent(self, search)
     
     @commands.command()
+    @commands.has_permissions(manage_messages = True)
     async def tos(self, ctx, roster, troll=None):
         final_teams_list = []
         matchs_list = []
@@ -217,7 +218,8 @@ class TeamsManager(commands.Cog):
             new_value = new_value[0].replace("<@!","").replace(">","")
             new_value = int(new_value)
             new_member = discord.utils.get(ctx.guild.members,id=int(new_value))
-            new_value = new_member.name
+            new_value = new_member
+            # await ctx.send(f"[ewb.debug] {new_value} / {new_member.name} / {new_value.display_name} {new_value.avatar_url}")
         else:        
             new_value = str(' '.join(new_value))
         print(new_value)
@@ -243,6 +245,7 @@ class TeamsManager(commands.Cog):
                 if object_to_change.lower() == "ref1":
                     target = f"AS{row}"
                     old = team['ewb_Ref1']
+                    await ctx.send(f"[ewb.debug] {new_value} / {new_value} / url_avatar <{new_value.avatar_url}>")
                 if object_to_change.lower() == "ref2":
                     target = f"AT{row}"
                     old = team['ewb_Ref2']
