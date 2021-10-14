@@ -107,8 +107,12 @@ class TeamsManager(commands.Cog):
             o = o + 1
             if troll != "notroll":
                 await ctx.send(f"`{o}`.||**{match[0]}**|| `vs` ||**{match[1]}**||")
+                if exempt:
+                    await ctx.send(f"Exempt : {exempt}")
             else:
                 await ctx.send(f"`{o}`.**{match[0]}** `vs` **{match[1]}**")
+                if exempt:
+                    await ctx.send(f"Exempt : {exempt}")
         if roster.lower() == "mixt":
             target = f"A1"
             target_exempt = f"C1"
