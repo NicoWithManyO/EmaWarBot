@@ -5,6 +5,7 @@ temp = 859594625836122122
 
 lock = False
 
+# prefix = ["test."]
 # base options
 prefix = ["ema.", "Ema.", "ecup.", "ranking.", "rkg.", "ecl."]
 # prefix = ["dev.", "ecup.", "rkg.", "ecl."]
@@ -21,8 +22,6 @@ running_env = None
 cogs_dir = "cogs"
 
 registrations_log_channel = 885964629157752862
-
-
 
 timing_spam_detect = 10
 limit_spam_detect = 5
