@@ -34,6 +34,7 @@ def create_std_embed(self, ctx, tiny = False, color = None, title = None, desc =
             embed.set_author(name=author, icon_url= ctx.guild.icon)
     return embed
 
+
 async def create_registrations_embed(self, tournament, teams_list):
     response = []
     ref_role = discord.utils.get(orga.ema_guild.roles,name=f"{tournament.config_file.referent_role}")

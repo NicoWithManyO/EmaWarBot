@@ -66,16 +66,52 @@ class TeamsManager(commands.Cog):
     
     @commands.command()
     async def cherche(self, *search):
-        # await async def search_referent(self, search):
         o = ' '.join(*search)
         await gsheet.teams_helper.search_referent(self, search)
     
-    
+    @commands.command()
+    async def recap(self, ctx, *options):
+        print(options)
+        mixt_validated = []
+        full_validated = []
+        mixt_to_check = []
+        full_to_check = []
+        mixt_canceled = []
+        full_canceled = []
+        mixt_all = []
+        full_all = []
+        if "v" in options:
+            print("oui")
+        tournament = tournaments_helper.select_tournament(self, ctx.message.content)
+        data = tournament.get_registrations_teams_list()
+        for team in data:
+            if team['ewb_Roster'] == "Mixt":
+                mixt_all.append(f"`{team['ewb_ID']}` {team['ewb_NomEquipe']}")
+                if team['ewb_FinalState'] == "Validée":
+                    mixt_validated.append(f"`{team['ewb_ID']}` {team['ewb_NomEquipe']}")
+                if team['ewb_FinalState'] == "Annulée" or team['ewb_FinalState'] == "Refusée" :
+                    mixt_canceled.append(f"`{team['ewb_ID']}` {team['ewb_NomEquipe']}")
+                if team['ewb_FinalState'] == "En attente de validation":
+                    mixt_to_check.append(f"`{team['ewb_ID']}` {team['ewb_NomEquipe']}")
+            if team['ewb_Roster'] == "Full":
+                full_all.append(f"`{team['ewb_ID']}` {team['ewb_NomEquipe']}")
+                if team['ewb_FinalState'] == "Validée":
+                    full_validated.append(f"`{team['ewb_ID']}` {team['ewb_NomEquipe']}")
+                if team['ewb_FinalState'] == "Annulée" or team['ewb_FinalState'] == "Refusée" :
+                    full_canceled.append(f"`{team['ewb_ID']}` {team['ewb_NomEquipe']}")
+                if team['ewb_FinalState'] == "En attente de validation":
+                    full_to_check.append(f"`{team['ewb_ID']}` {team['ewb_NomEquipe']}")
+        await ctx.send(f"> [ewb] `{tournament}`\n> **{len(mixt_all)}** {emojis.mixt}ixt")
+        await ctx.send(f"**__{len(mixt_to_check)} reste(s) à valider :__** {' | '.join(mixt_to_check)}")
+        await ctx.send(f"__{len(mixt_validated)} validée(s) :__ {' | '.join(mixt_validated)}")
+        await ctx.send(f"__{len(mixt_canceled)} annulée(s) / refusée(s) :__ {' | '.join(mixt_canceled)}")
+        await ctx.send(f"> **{len(full_all)}** {emojis.full}ull")
+        await ctx.send(f"**__{len(full_to_check)} reste(s) à valider :__** {' | '.join(full_to_check)}")
+        await ctx.send(f"__{len(full_validated)} validée(s) :__ {' | '.join(full_validated)}")
+        await ctx.send(f"__{len(full_canceled)} annulée(s) / refusée(s) :__  {' | '.join(full_canceled)}")
+        
     @commands.command()
     async def liste(self, ctx, roster=None):
-        print(ctx.message.channel)
-        # print(ctx.message.channel.id)
-        print(ctx.channel.id)
         mixt = []
         full = []
         tournament = tournaments_helper.select_tournament(self, ctx.message.content)
@@ -167,6 +203,6 @@ class TeamsManager(commands.Cog):
                 first_response = await ctx.send(embed = x)
         else:
             pass
-            
+ 
 def setup(bot):
     bot.add_cog(TeamsManager(bot))

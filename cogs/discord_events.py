@@ -92,6 +92,8 @@ class DiscordEvents(commands.Cog):
             role_to_remove = None
             guild = ewb.get_guild(payload.guild_id)
             member = guild.get_member(payload.user_id)
+            
+            
             if payload.message_id == ewb_config.welcome_valid_message:
                 if str(payload.emoji) == emojis.valid:
                     guild = ewb.get_guild(payload.guild_id)
