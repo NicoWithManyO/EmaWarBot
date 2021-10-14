@@ -15,3 +15,5 @@ referent_role = "🔴+Référent {name}"
 season_role = f"🔴+s{current_season}"
 
 engine_file = ""
+
+registration_recap_msg = None

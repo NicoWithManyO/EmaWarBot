@@ -70,8 +70,7 @@ class TeamsManager(commands.Cog):
         await gsheet.teams_helper.search_referent(self, search)
     
     @commands.command()
-    async def recap(self, ctx, *options):
-        print(options)
+    async def recap(self, ctx, option):
         mixt_validated = []
         full_validated = []
         mixt_to_check = []
@@ -80,10 +79,10 @@ class TeamsManager(commands.Cog):
         full_canceled = []
         mixt_all = []
         full_all = []
-        if "v" in options:
-            print("oui")
+    
         tournament = tournaments_helper.select_tournament(self, ctx.message.content)
         data = tournament.get_registrations_teams_list()
+
         for team in data:
             if team['ewb_Roster'] == "Mixt":
                 mixt_all.append(f"`{team['ewb_ID']}` {team['ewb_NomEquipe']}")
@@ -109,6 +108,16 @@ class TeamsManager(commands.Cog):
         await ctx.send(f"**__{len(full_to_check)} reste(s) à valider :__** {' | '.join(full_to_check)}")
         await ctx.send(f"__{len(full_validated)} validée(s) :__ {' | '.join(full_validated)}")
         await ctx.send(f"__{len(full_canceled)} annulée(s) / refusée(s) :__  {' | '.join(full_canceled)}")
+        if option == "tos":
+            response = await ctx.send(f"> [ewb] Utiliser {emojis.mixt} ou {emojis.full} pour lancer un tirage au sort")
+            # tournament.config_file.registration_recap_msg = response.id
+            if tournament.name == "Ecup":
+                self.ewb.ecup.config_file.registration_recap_msg = response.id
+            if tournament.name == "Ranking":
+                self.ewb.ranking.config_file.registration_recap_msg = response.id
+            
+                
+            # print(type(tournament.config_file.registration_recap_msg))
         
     @commands.command()
     async def liste(self, ctx, roster=None):

@@ -91,9 +91,15 @@ class DiscordEvents(commands.Cog):
             role = None
             role_to_remove = None
             guild = ewb.get_guild(payload.guild_id)
-            member = guild.get_member(payload.user_id)
-            
-            
+            channel = ewb.get_channel(payload.channel_id)
+            if payload.message_id == self.ewb.ranking.config_file.registration_recap_msg:
+                tournament = self.ewb.ranking
+                if str(payload.emoji) == emojis.mixt:
+                    await channel.send(f"> [ewb] Lancement du tirage {str(payload.emoji)}")
+                    data = tournament.get_registrations_teams_list()
+                    
+                    
+
             if payload.message_id == ewb_config.welcome_valid_message:
                 if str(payload.emoji) == emojis.valid:
                     guild = ewb.get_guild(payload.guild_id)
