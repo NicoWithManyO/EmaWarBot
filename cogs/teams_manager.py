@@ -14,6 +14,8 @@ import helpers.teams_helper as teams_helper
 
 import config_files.emojis as emojis
 
+import random
+
 class TeamsManager(commands.Cog):
     def __init__(self, ewb):
         self.ewb = ewb       
@@ -70,6 +72,60 @@ class TeamsManager(commands.Cog):
     #     await gsheet.teams_helper.search_referent(self, search)
     
     @commands.command()
+    async def tos(self, ctx, roster, troll=None):
+        final_teams_list = []
+        matchs_list = []
+        tournament = tournaments_helper.select_tournament(self, ctx.message.content)
+        data = tournament.get_registrations_teams_list()
+        for team in data:
+            if team['ewb_Roster'].lower() == roster.lower():
+                if team['ewb_FinalState'] == "Validée":
+                    final_teams_list.append(f"{team['ewb_NomEquipe']}")
+        await ctx.send(f"{roster} {len(final_teams_list)} équipes : {' `|` '.join(final_teams_list)}")
+        nbre_teams = len(final_teams_list)
+        # final_teams_list = ["1", "2", "o","zi", "3"]
+        pair = []
+        pair = []
+        matchs_list = []
+        exempt = None
+        await ctx.send(f"> [ewb] Tirage {tournament} {str(roster).title()}\n{nbre_teams} équipes\n{round(nbre_teams / 2)} matchs")
+        while len(final_teams_list) > 0:
+            current = random.choice(final_teams_list)
+            final_teams_list.remove(current)
+            pair.append(current)
+            if len(pair) == 2:
+                matchs_list.append(pair)
+                pair = []
+        print(len(final_teams_list))
+        print(pair)
+        if pair:
+            await ctx.send(f"exempt : {pair[0]}")
+            exempt = pair[0]
+        # await ctx.send(matchs_list)
+        o = 0
+        for match in matchs_list:
+            o = o + 1
+            if troll != "notroll":
+                await ctx.send(f"`{o}`.||**{match[0]}**|| `vs` ||**{match[1]}**||")
+            else:
+                await ctx.send(f"`{o}`.**{match[0]}** `vs` **{match[1]}**")
+        if roster.lower() == "mixt":
+            target = f"A1"
+            target_exempt = f"C1"
+        if roster.lower() == "full":
+            target = f"F1"
+            target_exempt = f"H1"
+        
+        print(gsheet.set_data_tos_to_sheet(tournament, target, matchs_list))
+        if exempt:
+            print(gsheet.set_data_tos_to_sheet(tournament, target_exempt, exempt))
+        
+        
+                
+            
+            
+    
+    @commands.command()
     async def recap(self, ctx, option=None):
         mixt_validated = []
         full_validated = []
@@ -101,16 +157,15 @@ class TeamsManager(commands.Cog):
                 if team['ewb_FinalState'] == "En attente de validation":
                     full_to_check.append(f"`{team['ewb_ID']}` {team['ewb_NomEquipe']}")
         await ctx.send(f"> [ewb] `{tournament}`\n> **{len(mixt_all)}** {emojis.mixt}ixt")
-        await ctx.send(f"**__{len(mixt_to_check)} reste(s) à valider :__** {' | '.join(mixt_to_check)}")
+        await ctx.send(f"**__{len(mixt_to_check)} reste(s) à valider :__ {' | '.join(mixt_to_check)}**")
         await ctx.send(f"__{len(mixt_validated)} validée(s) :__ {' | '.join(mixt_validated)}")
         await ctx.send(f"__{len(mixt_canceled)} annulée(s) / refusée(s) :__ {' | '.join(mixt_canceled)}")
         await ctx.send(f"> **{len(full_all)}** {emojis.full}ull")
-        await ctx.send(f"**__{len(full_to_check)} reste(s) à valider :__** {' | '.join(full_to_check)}")
+        await ctx.send(f"**__{len(full_to_check)} reste(s) à valider :__ {' | '.join(full_to_check)}**")
         await ctx.send(f"__{len(full_validated)} validée(s) :__ {' | '.join(full_validated)}")
         await ctx.send(f"__{len(full_canceled)} annulée(s) / refusée(s) :__  {' | '.join(full_canceled)}")
         if option == "tos":
             response = await ctx.send(f"> [ewb] Utiliser {emojis.mixt} ou {emojis.full} pour lancer un tirage au sort")
-            # tournament.config_file.registration_recap_msg = response.id
             if tournament.name == "Ecup":
                 self.ewb.ecup.config_file.registration_recap_msg = response.id
             if tournament.name == "Ranking":

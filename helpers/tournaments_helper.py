@@ -4,7 +4,7 @@ def select_tournament(self, cmd):
         return self.ewb.ecup
     if cmd.startswith("ecl."):
         return self.ewb.ecl
-    if cmd.startswith("rkg") or cmd.startswith("ranking"):
+    if cmd.startswith("test") or cmd.startswith("ranking"):
         return self.ewb.ranking
 
 def teams_selector(self, querry, data, search_author):

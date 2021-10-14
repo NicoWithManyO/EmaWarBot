@@ -22,3 +22,4 @@ registration_recap_msg = None
 suivi_file = ""
 engine_file = "https://docs.google.com/spreadsheets/d/11yRJt19xzpkBw--eFP0Wd6Ld9Iql3Lg4fDrSG8vR4OM/edit#gid=0"
 import_wk = sheet_config.id_gs.open_by_url(engine_file).worksheet("VALIDATOR")
+tos_wk = sheet_config.id_gs.open_by_url(engine_file).worksheet("data_tos")

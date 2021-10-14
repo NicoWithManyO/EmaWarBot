@@ -19,3 +19,6 @@ def get_validaded_teams_list(self):
 
 def set_data_team_to_sheet(self, target, data):
     return self.config_file.import_wk.update(target, data)
+
+def set_data_tos_to_sheet(self, target, data):
+    return self.config_file.tos_wk.update(target, data)
