@@ -64,13 +64,13 @@ class TeamsManager(commands.Cog):
         else:
             await ctx.send("> [ewb] Pas de résultat")
     
-    @commands.command()
-    async def cherche(self, *search):
-        o = ' '.join(*search)
-        await gsheet.teams_helper.search_referent(self, search)
+    # @commands.command()
+    # async def cherche(self, *search):
+    #     o = ' '.join(*search)
+    #     await gsheet.teams_helper.search_referent(self, search)
     
     @commands.command()
-    async def recap(self, ctx, option):
+    async def recap(self, ctx, option=None):
         mixt_validated = []
         full_validated = []
         mixt_to_check = []
