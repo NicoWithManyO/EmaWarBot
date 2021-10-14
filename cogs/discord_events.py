@@ -76,10 +76,10 @@ class DiscordEvents(commands.Cog):
                         await channel_to_log.send(f"`[ewb]` /!\ Spam détecté {message.author.mention} ({message.author.id}) dans #{message.channel}\n**Droit insuffisant pour intervenir !**")
             await ewb.process_commands(message)
         
-        # @ewb.event
-        # async def on_raw_message_delete(before):
-        #     if not before.author.bot:
-        #         await channel_to_log.send(f"`[ewb]` `{before.channel_id}` {emojis.remove} ")
+        @ewb.event
+        async def on_raw_message_delete(before):
+            if not before.author.bot:
+                await channel_to_log.send(f"`[ewb]` `{before.channel_id}` {emojis.remove} ")
         
         @ewb.event
         async def on_message_edit(before, after):
@@ -91,9 +91,8 @@ class DiscordEvents(commands.Cog):
             role = None
             role_to_remove = None
             guild = ewb.get_guild(payload.guild_id)
-            channel = ewb.get_channel(payload.channel_id)   
-                    
-
+            channel = ewb.get_channel(payload.channel_id)        
+            member = guild.get_member(payload.user_id)
             if payload.message_id == ewb_config.welcome_valid_message:
                 if str(payload.emoji) == emojis.valid:
                     guild = ewb.get_guild(payload.guild_id)
