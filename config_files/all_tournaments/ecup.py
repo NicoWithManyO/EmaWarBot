@@ -23,3 +23,6 @@ suivi_file = "https://s.divlo.fr/emaSuiviECup"
 engine_file = "https://docs.google.com/spreadsheets/d/1QNRBLXf1VpHakdO3x1_-qd5gZKH4QgqHuP4O8mCl8ig/edit#gid=1933450451"
 import_wk = sheet_config.id_gs.open_by_url(engine_file).worksheet("VALIDATOR")
 validaded_teams_wk = sheet_config.id_gs.open_by_url(engine_file).worksheet("ewb_TeamsExport")
+calc_mixt = sheet_config.id_gs.open_by_url(engine_file).worksheet("calc_MIXT")
+calc_full = sheet_config.id_gs.open_by_url(engine_file).worksheet("calc_FULL")
+round_wk = sheet_config.id_gs.open_by_url(engine_file).worksheet("tempOTrick")

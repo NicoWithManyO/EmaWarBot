@@ -5,10 +5,9 @@ temp = 859594625836122122
 
 lock = False
 
-# prefix = ["test."]
+prefix = ["test."]
 # base options
-prefix = ["ema.", "Ema.", "ecup.", "ranking.", "rkg.", "ecl."]
-# prefix = ["dev.", "ecup.", "rkg.", "ecl."]
+prefix = ["ema.", "Ema.", "ecup.", "Ecup.", "Ranking.", "ranking.", "Rkg.", "rkg.", "ecl.", "Ecl.", "o.", "O."]
 case_insensitive = True
 intents = discord.Intents.all()
 
@@ -38,3 +37,5 @@ th_selector_message = 894008857016291368
 
 server_log_channel = 856190295452549130
 ewb_boot_channel = 860679276793036811
+
+war_log_channel = 898533641355939860

@@ -1,5 +1,6 @@
 
 def select_tournament(self, cmd):
+    cmd = cmd.lower()
     if cmd.startswith("ecup."):
         return self.ewb.ecup
     if cmd.startswith("ecl."):

@@ -245,7 +245,7 @@ class TeamsManager(commands.Cog):
                 if object_to_change.lower() == "ref1":
                     target = f"AS{row}"
                     old = team['ewb_Ref1']
-                    await ctx.send(f"[ewb.debug] {new_value} / {new_value} / url_avatar <{new_value.avatar_url}>")
+                    await ctx.send(f"[ewb.debug] {new_value} / {new_value} / url_avatar <new_value.avatar_url> / {new_value.id}")
                 if object_to_change.lower() == "ref2":
                     target = f"AT{row}"
                     old = team['ewb_Ref2']
