@@ -18,7 +18,7 @@ import config_files.organization as orga
 def random_color():
     return random.randint(0, 16777215)
 
-def create_std_embed(self, ctx, tiny = False, color = None, title = None, desc = None, author = None, logo = None):
+def create_std_embed(self, ctx, tiny = False, color = None, title = None, desc = None, author = None, logo = None, footer = None):
     if not color:
         color = random_color()
     embed = discord.Embed(title = title, description = desc, color = color)
@@ -27,11 +27,14 @@ def create_std_embed(self, ctx, tiny = False, color = None, title = None, desc =
             embed.set_thumbnail(url=orga.ema_logo)
         else:
             embed.set_thumbnail(url=logo)
-        embed.set_footer(text=f"{ewb_config.signature}", icon_url=ewb_config.bot_avatar)
+        if not footer:
+            embed.set_footer(text=f"{footer}", icon_url=ewb_config.bot_avatar)
+        else:
+            embed.set_footer(text=f"{ewb_config.signature}", icon_url=ewb_config.bot_avatar)
         if not author:
-            embed.set_author(name=ctx.guild, icon_url= ctx.guild.icon)
+            embed.set_author(name=ctx.guild, icon_url= ctx.guild.icon_url)
         elif not tiny:
-            embed.set_author(name=author, icon_url= ctx.guild.icon)
+            embed.set_author(name=author, icon_url= ctx.guild.icon_url)
     return embed
 
 

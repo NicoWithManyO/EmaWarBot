@@ -124,11 +124,7 @@ class TeamsManager(commands.Cog):
         print(gsheet.set_data_tos_to_sheet(tournament, target, matchs_list))
         if exempt:
             print(gsheet.set_data_tos_to_sheet(tournament, target_exempt, exempt))
-        
-        
-                
-            
-            
+   
     
     @commands.command()
     async def recap(self, ctx, option=None):
