@@ -5,7 +5,7 @@ temp = 859594625836122122
 
 lock = False
 
-prefix = ["test."]
+# prefix = ["test."]
 # base options
 prefix = ["ema.", "Ema.", "ecup.", "Ecup.", "Ranking.", "ranking.", "Rkg.", "rkg.", "ecl.", "Ecl.", "o.", "O."]
 case_insensitive = True

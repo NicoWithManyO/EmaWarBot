@@ -53,6 +53,15 @@ class TeamsManager(commands.Cog):
         id_team = ' '.join(id_team)
         tournament = tournaments_helper.select_tournament(self, ctx.message.content)
         data = tournament.get_registrations_teams_list()
+        if id_team == "info" or id_team == "infos" or id_team == "compet":
+            # if tournament.name == "Ranking":
+            #     desc = f"{tournament.config_file.description}\n\n{tournament.config_file.liens_utiles}\n{tournament.config_file.translate_links}"
+            # if tournament.name == "Ecup":
+            #     desc = f"Retrouver l'Ecup tous les dimanches soirs !\n(Inscriptions closes)\n{tournament.config_file.liens_utiles}"
+            desc = f"{tournament.config_file.description}\n\n{tournament.config_file.liens_utiles}\n{tournament.config_file.translate_links}"
+            await ctx.send(embed = templates.create_std_embed(self, ctx, color = tournament.config_file.color, title = f"{tournament}", desc = f"{desc}", logo = tournament.tournament_avatar))
+            return
+            
         # if tournament.name == "Ecup":
         #     print(ctx.message.channel.id)
         #     for temp in data:

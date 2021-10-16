@@ -30,4 +30,8 @@ round_wk = sheet_config.id_gs.open_by_url(engine_file).worksheet("tempOTrick")
 
 
 suivi_link = f""
-liens_utiles = f"[Fichier de suivi](https://s.divlo.fr/emaSuiviECup) | [Règlement](https://s.divlo.fr/emaReglementEcup) | [Calendrier](https://s.divlo.fr/CalendrierEma)\n[Invite Discord](https://discord.gg/4yAZ2wV) | [Twitter Ema](https://twitter.com/emagine_gaming?lang=fr)"
+liens_utiles = f"[Fichier de suivi](https://s.divlo.fr/emaSuiviECup) | [Règlement](https://s.divlo.fr/emaReglementEcup)\n[Calendrier](https://s.divlo.fr/CalendrierEma) | [Invite Discord](https://discord.gg/4yAZ2wV) | [Twitter Ema](https://twitter.com/emagine_gaming?lang=fr)"
+
+translate_links = f"[🇬🇧 English Rules](https://s.divlo.fr/emaReglementECupShort_ENG) | [🇪🇦 Spanish Reglas](https://s.divlo.fr/emaReglementECupShort_ESP)"
+
+description = f"\nInscriptions en amont de la saison : closes !\nCompétition du .. au ..\n\nMatch : dimanche soir\n\nQualification pour l'ECL & points pour le Master Clash"

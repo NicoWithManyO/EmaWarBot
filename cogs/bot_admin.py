@@ -34,6 +34,7 @@ class BotAdmin(commands.Cog):
             # print("[ewb.BotAdmin] spam log cleared")
     
     @tasks.loop(seconds=ewb_config.timing_raid_detect)
+    @commands.has_permissions(manage_messages = True)
     async def clear_raid_detect(self):
         with open("data/temp/entry.txt", "r+") as file:
             file.truncate(0)
