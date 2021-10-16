@@ -37,7 +37,7 @@ class RoundMatchsWatcher(commands.Cog):
             await ctx.send(self.stop_round_matchs_detection())
     
     
-    @tasks.loop(seconds=60)
+    @tasks.loop(seconds=600)
     async def scores_watcher(self):
         print("detection des matchs")
         tournament = None
@@ -81,7 +81,7 @@ class RoundMatchsWatcher(commands.Cog):
                                     else:
                                         await channel.send(f"Joueurs ok {match['ewb_IDMatch']}")
                                 if war.state == "warEnded":
-                                    score = [[war.clan.destruction, war.clan.stars, war.opponent.stars, war.opponent.destruction]]
+                                    score = [[war.clan.destruction, war.clan.stars, war.opponent.stars, war.opponent.destruction, war.status]]
                                     print(score)
                                     await channel.send(score)
                                     roster = match['ewb_IDMatch'][:4]
