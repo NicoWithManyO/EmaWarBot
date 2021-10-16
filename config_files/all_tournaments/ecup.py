@@ -19,6 +19,7 @@ color = discord.Color.blue()
 
 registration_recap_msg = None
 
+rules = "https://s.divlo.fr/emaReglementECup"
 suivi_file = "https://s.divlo.fr/emaSuiviECup"
 engine_file = "https://docs.google.com/spreadsheets/d/1QNRBLXf1VpHakdO3x1_-qd5gZKH4QgqHuP4O8mCl8ig/edit#gid=1933450451"
 import_wk = sheet_config.id_gs.open_by_url(engine_file).worksheet("VALIDATOR")
@@ -26,3 +27,7 @@ validaded_teams_wk = sheet_config.id_gs.open_by_url(engine_file).worksheet("ewb_
 calc_mixt = sheet_config.id_gs.open_by_url(engine_file).worksheet("calc_MIXT")
 calc_full = sheet_config.id_gs.open_by_url(engine_file).worksheet("calc_FULL")
 round_wk = sheet_config.id_gs.open_by_url(engine_file).worksheet("tempOTrick")
+
+
+suivi_link = f""
+liens_utiles = f"[Fichier de suivi](https://s.divlo.fr/emaSuiviECup) | [Règlement](https://s.divlo.fr/emaReglementEcup) | [Calendrier](https://s.divlo.fr/CalendrierEma)\n[Invite Discord](https://discord.gg/4yAZ2wV) | [Twitter Ema](https://twitter.com/emagine_gaming?lang=fr)"

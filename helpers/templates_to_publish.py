@@ -130,6 +130,7 @@ async def create_registrations_embed(self, tournament, teams_list):
             embed.add_field(name=ref2, value="Référent 2", inline= True)
         if x['ewb_Language'] != "":
             embed.add_field(name=x['ewb_Language'], value="Langue de prédilection", inline= False)
+        embed.add_field(name="Liens utiles", value = tournament.config_file.liens_utiles, inline= False)
         response.append(embed)
     return response
     
