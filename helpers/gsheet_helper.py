@@ -9,7 +9,7 @@ def get_registrations(self):
     response = []
     data = pd.DataFrame(self.config_file.import_wk.get_all_records())
     for index, row in data.iterrows():
-        if row['ewb_Roster'] != "":
+        if row['ewb_Roster'] != "" and row['ewb_Round'] == self.current_round:
             response.append(row)
     return response
 
