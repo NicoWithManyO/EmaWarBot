@@ -35,4 +35,4 @@ liens_utiles = f"[Fichier de suivi](https://s.divlo.fr/emaSuiviRanking) | [Règl
 
 translate_links = f"[🇬🇧 English Rules](https://s.divlo.fr/emaRankingRules_ENG) | [🇪🇦 Spanish Reglas](https://s.divlo.fr/emaRankingReglas_ESP)"
 
-description = f"\n**Inscription du lundi au jeudi** à 20h pour la journée à venir\nTirage au sort : Jeudi soir après la clôture des inscriptions\nMatch : vendredi soir\n**Inscriptions à renouveler chaque semaine**\n\nQualification pour l'ECL & points pour le Master Clash"
+description = f"\n**Inscription du lundi au jeudi** à 20h pour la journée à venir\nTirage au sort : Jeudi soir après la clôture des inscriptions\nMatch : vendredi soir\n**Inscriptions à renouveler chaque semaine**\n\nQualification pour l'ECL & points pour le Master Clash\n\n> Retrouvez les planning, scores & classements dans le fichier de suivi"

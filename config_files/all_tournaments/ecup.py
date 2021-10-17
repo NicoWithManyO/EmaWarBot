@@ -34,4 +34,4 @@ liens_utiles = f"[Fichier de suivi](https://s.divlo.fr/emaSuiviECup) | [Règleme
 
 translate_links = f"[🇬🇧 English Rules](https://s.divlo.fr/emaReglementECupShort_ENG) | [🇪🇦 Spanish Reglas](https://s.divlo.fr/emaReglementECupShort_ESP)"
 
-description = f"\nInscriptions en amont de la saison : closes !\nCompétition du .. au ..\n\nMatch : dimanche soir\n\nQualification pour l'ECL & points pour le Master Clash"
+description = f"\nInscriptions en amont de la saison : closes !\nCompétition du .. au ..\n\nMatch : dimanche soir\n\nQualification pour l'ECL & points pour le Master Clash\n\n> Retrouvez les planning, scores & classements dans le fichier de suivi"
