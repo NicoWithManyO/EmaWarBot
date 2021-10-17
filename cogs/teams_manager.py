@@ -50,6 +50,8 @@ class TeamsManager(commands.Cog):
     
     @commands.command()
     async def voir(self, ctx, *id_team):
+        if cmd.startswith("ema."):
+            await ctx.send(f"> [ewb] Utiliser le prefix pour selectioner une compétition `rkg.voir` ou `ecup.voir`")
         id_team = ' '.join(id_team)
         tournament = tournaments_helper.select_tournament(self, ctx.message.content)
         data = tournament.get_registrations_teams_list()
