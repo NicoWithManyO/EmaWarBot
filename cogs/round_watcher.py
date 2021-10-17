@@ -45,8 +45,8 @@ class RoundMatchsWatcher(commands.Cog):
         for x in tournaments_config.active_tournaments:
             if x == "ecup":
                 tournament = self.ewb.ecup
-            if x == "ranking":
-                tournament = self.ewb.ranking
+            # if x == "ranking":
+                # tournament = self.ewb.ranking
         self.round_full_matchs_list = tournament.get_round_matchs_list('full')
         self.round_mixt_matchs_list = tournament.get_round_matchs_list('mixt')
         to_check = [self.round_mixt_matchs_list, self.round_full_matchs_list]
