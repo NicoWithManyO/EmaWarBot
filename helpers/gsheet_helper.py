@@ -25,7 +25,6 @@ def get_round_matchs(self, roster):
         for index, row in data_full.iterrows():
             if row['ewb_TeamB'] != "" and row['ewb_ARecup'] == "TRUE":
                 response.append(row)
-    print(response)
     return response
 
 def set_data_team_to_sheet(self, target, data):
