@@ -15,7 +15,7 @@ import config_files.ewb_bot as ewb_config
 class RoundMatchsWatcher(commands.Cog):
     def __init__(self, ewb):
         self.ewb = ewb
-        # self.start_round_matchs_detection()
+        self.start_round_matchs_detection()
         
 
     def stop_round_matchs_detection(self):
@@ -51,7 +51,7 @@ class RoundMatchsWatcher(commands.Cog):
         self.round_mixt_matchs_list = tournament.get_round_matchs_list('mixt')
         to_check = [self.round_mixt_matchs_list, self.round_full_matchs_list]
         await channel.send(f"> [ewb] WarWatcher")
-        print(to_check)
+        # print(to_check)
         for x in to_check:
             for match in x:
                 if match['ewb_ARecup'] == 'TRUE':
