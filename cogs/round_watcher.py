@@ -51,7 +51,6 @@ class RoundMatchsWatcher(commands.Cog):
         self.round_mixt_matchs_list = tournament.get_round_matchs_list('mixt')
         to_check = [self.round_mixt_matchs_list, self.round_full_matchs_list]
         await channel.send(f"> [ewb] WarWatcher")
-        # print(to_check)
         for x in to_check:
             for match in x:
                 if match['ewb_ARecup'] == 'TRUE':
@@ -60,8 +59,8 @@ class RoundMatchsWatcher(commands.Cog):
                     if type(war) == coc.wars.ClanWar:
                         if match['ewb_Tag'] == war.clan.tag:
                             teams_players = []
-                            print(match['ewb_TagOpp'])
-                            print(war.opponent.tag)
+                            # print(match['ewb_TagOpp'])
+                            # print(war.opponent.tag)
                             if match['ewb_TagOpp'] == war.opponent.tag:
                                 
                                 await channel.send(f"Adversaire correspondant {match['ewb_Tag']} vs {war.opponent.tag} {war.team_size}players {war.state}")

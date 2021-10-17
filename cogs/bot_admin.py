@@ -46,6 +46,16 @@ class BotAdmin(commands.Cog):
         await ctx.send(embed = templates.create_std_embed(self, ctx, title = "Partagez ce lien pour inviter vos amis sur E-magine Gaming", desc = f"> ** https://discord.gg/4yAZ2wV **\n\nLiens utiles : [Calendrier](https://s.divlo.fr/CalendrierEma) | [Twitter Ema](https://twitter.com/emagine_gaming?lang=fr)"))
         print(f"Retrouvez aussi : le [Calendrier](https://s.divlo.fr/CalendrierEma) | [Twitter Ema](https://twitter.com/emagine_gaming?lang=fr)")
         
+    @commands.command(aliases = ["ade", "dea"])
+    async def coop(self, ctx):
+        """ ^^ """
+        await ctx.send(f"https://cdn.discordapp.com/attachments/269527343981133825/623245722266894337/line_97177570211207.jpg\nCe n'est pas de la répression ... c'est de la coopération !")
+    
+    @commands.command(aliases = ['rtfm'])
+    async def rtfr(self, ctx):
+        """ ^^ """
+        await ctx.send("https://cdn.discordapp.com/attachments/860198153047113789/885837531004952586/baaaaa.png")
+
 
 def setup(bot):
     bot.add_cog(BotAdmin(bot))
