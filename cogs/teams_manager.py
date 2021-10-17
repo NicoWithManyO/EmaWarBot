@@ -67,7 +67,7 @@ class TeamsManager(commands.Cog):
         #     for temp in data:
         #         if temp['ewb_RoomID'] == ctx.message.channel.id:
         #             id_team == int(temp['ewb_RoomID'])
-        print(to_show)
+        # print(to_show)
         print(data)
         teams_to_show = tournaments_helper.teams_selector(self, id_team, data, ctx.message.author)
         if teams_to_show:
