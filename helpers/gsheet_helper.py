@@ -19,12 +19,13 @@ def get_round_matchs(self, roster):
     data_full = pd.DataFrame(self.config_file.calc_full.get_all_records())
     if roster == "mixt":
         for index, row in data_mixt.iterrows():
-            if row['ewb_TeamB'] != "":
+            if row['ewb_TeamB'] != "" and row['ewb_ARecup'] == "TRUE":
                 response.append(row)
     if roster == "full":
         for index, row in data_full.iterrows():
-            if row['ewb_TeamB'] != "":
+            if row['ewb_TeamB'] != "" and row['ewb_ARecup'] == "TRUE":
                 response.append(row)
+    print(response)
     return response
 
 def set_data_team_to_sheet(self, target, data):
