@@ -45,7 +45,7 @@ class TournamentsSheduledTasks(commands.Cog):
         elif value == "off".lower():
             await ctx.send(self.stop_registrations_detection())
 
-    @tasks.loop(seconds=300)
+    @tasks.loop(seconds=120)
     async def registrations_watcher(self):
         tournament = None
         channel = self.ewb.get_channel(ewb_config.registrations_log_channel)
@@ -57,6 +57,7 @@ class TournamentsSheduledTasks(commands.Cog):
             new_registrations_list = tournament.get_new_registrations_list()
             if tournament.config_file.registrations_is_open:
                 if new_registrations_list:
+                    await channel.send(f"> [ewb] Réception de {team['ewb_NomEquipe']}")
                     for team in new_registrations_list:
                         ref = await teams_helper.search_referent(self, team['ewb_Ref1'])
                         if len(ref) == 1:

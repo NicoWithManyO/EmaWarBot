@@ -74,7 +74,9 @@ class TeamsManager(commands.Cog):
         teams_to_show = tournaments_helper.teams_selector(self, id_team, data, ctx.message.author)
         if teams_to_show:
             embeds = await templates.create_registrations_embed(self, tournament, teams_to_show)
+            
             for x in embeds:
+                print(x)
                 await ctx.send(embed = x)
         else:
             await ctx.send("> [ewb] Pas de résultat")
