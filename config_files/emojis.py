@@ -59,6 +59,7 @@ mixt = "🇲"
 current_round = "🇯"
 current_season = "🇸"
 on_is_false = "<:on_is_false:849993922435612722>"
+new = ":new:"
 
 clan_green = "<:clan:850857450731077652>"
 clan_nok = "<:red_clan:848573000990720031>"

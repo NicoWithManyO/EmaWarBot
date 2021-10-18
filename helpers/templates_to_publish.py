@@ -50,6 +50,8 @@ async def create_registrations_embed(self, tournament, teams_list):
             title = f"`{x['ewb_ID']}`. {x['ewb_NomEquipe']} {emojis.valid}"
         else:
             title = f"`{x['ewb_ID']}`. {x['ewb_NomEquipe']}"
+        if x['ewb_New'] == "TRUE":
+            title = f"{title} {emojis.new}"
         if x['ewb_FinalState'] != "":
             state = x['ewb_FinalState']
         else:
