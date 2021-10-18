@@ -31,8 +31,8 @@ players_wk = sheet_config.id_gs.open_by_url(engine_file).worksheet("datas_player
 
 
 suivi_link = f""
-liens_utiles = f"[Fichier de suivi](https://s.divlo.fr/emaSuiviRanking) | [Règlement](https://s.divlo.fr/emaReglementRanking) | **[Inscription](http://s.divlo.fr/emaInscriptionRanking)**\n[Calendrier](https://s.divlo.fr/CalendrierEma) | [Invite Discord](https://discord.gg/4yAZ2wV) | [Twitter Ema](https://twitter.com/emagine_gaming?lang=fr)"
+liens_utiles = f"[Fichier de suivi](https://s.divlo.fr/emaSuiviRanking) | [Règlement](https://s.divlo.fr/emaReglementRanking) | **[Inscriptions](http://s.divlo.fr/emaInscriptionRanking)**\n[Calendrier](https://s.divlo.fr/CalendrierEma) | [Invite Discord](https://discord.gg/4yAZ2wV) | [Twitter Ema](https://twitter.com/emagine_gaming?lang=fr)"
 
 translate_links = f"[🇬🇧 English Rules](https://s.divlo.fr/emaRankingRules_ENG) | [🇪🇦 Spanish Reglas](https://s.divlo.fr/emaRankingReglas_ESP)"
 
-description = f"\n**Inscription du lundi au jeudi** à 20h pour la journée à venir\nTirage au sort : Jeudi soir après la clôture des inscriptions\nMatch : vendredi soir\n**Inscriptions à renouveler chaque semaine**\n\nQualification pour l'ECL & points pour le Master Clash\n\n> Retrouvez les planning, scores & classements dans le fichier de suivi"
+description = f"\n**Inscription du lundi au jeudi** à 20h pour la journée à venir\nTirage au sort : Jeudi soir après la clôture des inscriptions\nMatch : vendredi soir\n\n>**Inscriptions à renouveler chaque semaine : [Inscriptions](http://s.divlo.fr/emaInscriptionRanking)**\n\nQualification pour l'ECL & points pour le Master Clash\n\n> Retrouvez les planning, scores & classements dans le fichier de suivi"
