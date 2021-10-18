@@ -57,8 +57,9 @@ class TournamentsSheduledTasks(commands.Cog):
             new_registrations_list = tournament.get_new_registrations_list()
             if tournament.config_file.registrations_is_open:
                 if new_registrations_list:
-                    await channel.send(f"> [ewb] Réception de {team['ewb_NomEquipe']}")
+                    
                     for team in new_registrations_list:
+                        await channel.send(f"> [ewb] Réception de {team['ewb_NomEquipe']}")
                         ref = await teams_helper.search_referent(self, team['ewb_Ref1'])
                         if len(ref) == 1:
                             for user in ref:
