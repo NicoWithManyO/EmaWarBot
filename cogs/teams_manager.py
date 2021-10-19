@@ -279,6 +279,7 @@ class TeamsManager(commands.Cog):
                gsheet.set_data_team_to_sheet(tournament, target, new_value)
                target = f"ED{row}"
                gsheet.set_data_team_to_sheet(tournament, target, str(ctx.message.author))
+               print(ctx.message.author.display_name)
             else:    
                 gsheet.set_data_team_to_sheet(tournament, target, str(new_value))
 
