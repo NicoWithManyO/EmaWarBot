@@ -51,6 +51,11 @@ class TeamsManager(commands.Cog):
                 await ctx.send(f"> {emojis.discord} `{o}.` {finded.mention} `{finded}` {finded.id}")
     
     @commands.command()
+    @commands.has_role("Staff E-magine ⭐")
+    async def test(self, ctx):
+        await ctx.send("ok")
+    
+    @commands.command()
     async def voir(self, ctx, *id_team):
         if ctx.message.content.startswith("ema.") or ctx.message.content.startswith("Ema."):
             await ctx.send(f"> [ewb] Utiliser le prefix pour selectioner une compétition `rkg.voir` ou `ecup.voir`")
