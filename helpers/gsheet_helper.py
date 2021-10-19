@@ -39,6 +39,9 @@ def set_data_players_to_sheet(self, target, data):
 def get_last_row_on_players_data(self):
     return self.config_file.players_wk.find("ewb_last")
 
+def set_validator_team_to_sheet(self, target, data):
+    return self.config_file.import_wk.update(target, data)
+
 def get_last_calc_data(self, roster, search):
     if roster == "Mixt":
         return self.config_file.calc_mixt.find(search)
