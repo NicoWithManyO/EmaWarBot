@@ -258,7 +258,7 @@ class TeamsManager(commands.Cog):
                     target = f"AT{row}"
                     old = team['ewb_Ref2']
                 
-                if object_to_change.lower() == "valid":
+                if object_to_change.lower() == "valid" or object_to_change == "+":
                     target = f"EA{row}"
                     old = team['ewb_Valid']
                     if new_value == "+":
