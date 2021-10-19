@@ -283,7 +283,7 @@ class TeamsManager(commands.Cog):
                 gsheet.set_data_team_to_sheet(tournament, target, str(new_value))
 
             data = tournament.get_registrations_teams_list()
-            teams_to_show = tournaments_helper.teams_selector(self, id_team, data, ctx.message.author)
+            teams_to_show = tournaments_helper.teams_selector(self, id_team, data, ctx.message.author.name)
             embeds = await templates.create_registrations_embed(self, tournament, teams_to_show)
             for x in embeds:
                 first_response = await ctx.send(embed = x)
