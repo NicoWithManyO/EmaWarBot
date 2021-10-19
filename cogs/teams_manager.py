@@ -91,7 +91,7 @@ class TeamsManager(commands.Cog):
     #     await gsheet.teams_helper.search_referent(self, search)
     
     @commands.command()
-    @commands.has_permissions(manage_messages = True)
+    @commands.has_role("Staff E-magine ⭐")
     async def tos(self, ctx, roster, troll=None):
         final_teams_list = []
         matchs_list = []
@@ -219,7 +219,8 @@ class TeamsManager(commands.Cog):
             
 
     @commands.command()
-    @commands.has_permissions(manage_messages = True)
+    # @commands.has_permissions(manage_messages = True)
+    @commands.has_role("Staff E-magine ⭐")
     async def change(self, ctx, id_team:int, object_to_change, *new_value):
         tournament = tournaments_helper.select_tournament(self, ctx.message.content)
         data = tournament.get_registrations_teams_list()
