@@ -274,7 +274,12 @@ class TeamsManager(commands.Cog):
                         new_value = False
 
             await ctx.send(f"> [ewb] `{tournament}` Modification de **{object_to_change}** pour **{team['ewb_NomEquipe']}** (ancien : <{old}>)")
-            gsheet.set_data_team_to_sheet(tournament, target, new_value)
+            
+            if object_to_change == "valid":
+                gsheet.set_data_team_to_sheet(tournament, target, new_value)
+            else:    
+                gsheet.set_data_team_to_sheet(tournament, target, str(new_value))
+
             data = tournament.get_registrations_teams_list()
             teams_to_show = tournaments_helper.teams_selector(self, id_team, data, ctx.message.author)
             embeds = await templates.create_registrations_embed(self, tournament, teams_to_show)
