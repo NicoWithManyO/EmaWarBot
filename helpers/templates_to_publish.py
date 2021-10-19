@@ -110,6 +110,8 @@ async def create_registrations_embed(self, tournament, teams_list):
         if x['ewb_Roster'] == "Full":
             roster = f"{emojis.full}ull"
         embed.set_footer(text=f"Inscription reçue le {x['HORRODATEUR']}", icon_url=ewb_config.bot_avatar)
+        if x['ewb_FinalState'] == "Validée":
+            embed.set_footer(text=f"Inscription validée par {x['ewb_Validateur']}", icon_url=ewb_config.bot_avatar)
         embed.set_author(name=tournament, icon_url= tournament.tournament_avatar, url=tournament.config_file.suivi_file)
         embed.add_field(name=f"Roster : {roster}", value=f"{clan}", inline= False)
         print(x['ewb_Ligue'])
