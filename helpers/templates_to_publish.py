@@ -140,9 +140,9 @@ async def create_registrations_embed(self, tournament, teams_list):
         if x['ewb_Roster'] == "Full":
             matchs_list = tournament.get_round_matchs_list('full')
         print(matchs_list)
-        for match in matchs_list:
-            print(match)
-        embed.add_field(name="o", value = tournament.config_file.liens_utiles, inline= False)
+        # for match in matchs_list:
+        #     print(match)
+        # embed.add_field(name="o", value = tournament.config_file.liens_utiles, inline= False)
         
         response.append(embed)
     return response
