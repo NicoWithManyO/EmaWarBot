@@ -2,6 +2,8 @@
 import discord
 from discord.ext import commands
 
+from time import strftime
+
 import helpers.tournaments_helper as tournaments_helper
 
 import helpers.templates_to_publish as templates
@@ -279,6 +281,7 @@ class TeamsManager(commands.Cog):
                gsheet.set_data_team_to_sheet(tournament, target, new_value)
                target = f"ED{row}"
                gsheet.set_data_team_to_sheet(tournament, target, str(ctx.message.author.display_name))
+               await ctx.send(f"> [ewb.debug] {strftime(%Y-%m-%d %H:%M:%S, datetime.now()))}")
             else:    
                 gsheet.set_data_team_to_sheet(tournament, target, str(new_value))
 
