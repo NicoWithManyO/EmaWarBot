@@ -276,7 +276,7 @@ class TeamsManager(commands.Cog):
             await ctx.send(f"> [ewb] `{tournament}` Modification de **{object_to_change}** pour **{team['ewb_NomEquipe']}** (ancien : <{old}>)")
             
             if object_to_change == "valid":
-                # return gsheet.set_validator_team_to_sheet(self, target, data)
+                return gsheet.set_validator_team_to_sheet(self, target, data)
                 target = f"ED{row}"
                 gsheet.set_data_team_to_sheet(tournament, target, str(ctx.message.author))
             else:    
