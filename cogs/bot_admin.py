@@ -18,7 +18,7 @@ class BotAdmin(commands.Cog):
         self.clear_raid_detect.start()
 
     @commands.command(name="clear", aliases = ["erase"])
-    @commands.has_permissions(manage_messages = True)
+    @commands.has_role("Staff E-magine ⭐")
     async def clear(self, ctx, lines:int):
         """Nettoie la room de X messages
         Fournir le nombre de messages (X) à retirer de la room (max. 1000)
@@ -34,7 +34,7 @@ class BotAdmin(commands.Cog):
             # print("[ewb.BotAdmin] spam log cleared")
     
     @tasks.loop(seconds=ewb_config.timing_raid_detect)
-    @commands.has_permissions(manage_messages = True)
+    @commands.has_role("Staff E-magine ⭐")
     async def clear_raid_detect(self):
         with open("data/temp/entry.txt", "r+") as file:
             file.truncate(0)
