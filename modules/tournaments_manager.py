@@ -81,6 +81,9 @@ class TournamentsManager():
     
     def set_score_data(self, roster, target, data):
         return gsheet.set_data_scores_to_sheet(self, roster, target, data)
+    
+    def set_team_validator(self, target, validator):
+        return gsheet.set_validator_team_to_sheet(self, target, data)
 
 
 
