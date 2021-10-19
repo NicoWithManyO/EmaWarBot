@@ -67,7 +67,7 @@ async def create_registrations_embed(self, tournament, teams_list):
             state = "Inscription reçue"
         try:
             clan = await ingame.check_clan_tag(self, x['ewb_Tag'])
-            clan = f"{emojis.clan_ok} **{clan.tag} | [{clan.name}]({clan.share_link})**\nWarlog {clan.public_war_log} | {clan.type} | {clan.required_trophies}tr"
+            clan = f"{emojis.clan_ok} **{clan.tag} | [{clan.name}]({clan.share_link})**\nWarlog {clan.public_war_log} | {clan.type} | {clan.required_trophies}tr | lvl{clan.level}"
         except:
             clan = f"{emojis.clan_nok} {x['ewb_Tag']} Tag incorrect"
         ref1 = None
@@ -135,6 +135,15 @@ async def create_registrations_embed(self, tournament, teams_list):
         if x['ewb_Language'] != "":
             embed.add_field(name=x['ewb_Language'], value="Langue de prédilection", inline= False)
         embed.add_field(name="Liens utiles", value = tournament.config_file.liens_utiles, inline= False)
+        if x['ewb_Roster'] == "Mixt":
+            matchs_list = tournament.get_round_matchs_list('mixt')
+        if x['ewb_Roster'] == "Full":
+            matchs_list = tournament.get_round_matchs_list('full')
+        print(matchs_list)
+        for match in matchs_list:
+            print(match)
+        embed.add_field(name="o", value = tournament.config_file.liens_utiles, inline= False)
+        
         response.append(embed)
     return response
     

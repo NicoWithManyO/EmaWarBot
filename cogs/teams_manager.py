@@ -50,27 +50,24 @@ class TeamsManager(commands.Cog):
     
     @commands.command()
     async def voir(self, ctx, *id_team):
-        if ctx.message.content.startswith("ema."):
+        if ctx.message.content.startswith("ema.") or ctx.message.content.startswith("Ema."):
             await ctx.send(f"> [ewb] Utiliser le prefix pour selectioner une compétition `rkg.voir` ou `ecup.voir`")
         id_team = ' '.join(id_team)
         tournament = tournaments_helper.select_tournament(self, ctx.message.content)
         data = tournament.get_registrations_teams_list()
         if id_team == "info" or id_team == "infos" or id_team == "compet":
-            # if tournament.name == "Ranking":
-            #     desc = f"{tournament.config_file.description}\n\n{tournament.config_file.liens_utiles}\n{tournament.config_file.translate_links}"
-            # if tournament.name == "Ecup":
-            #     desc = f"Retrouver l'Ecup tous les dimanches soirs !\n(Inscriptions closes)\n{tournament.config_file.liens_utiles}"
             desc = f"{tournament.config_file.description}\n\n{tournament.config_file.liens_utiles}\n{tournament.config_file.translate_links}"
             await ctx.send(embed = templates.create_std_embed(self, ctx, color = tournament.config_file.color, title = f"{tournament}", desc = f"{desc}", logo = tournament.tournament_avatar))
             return
-            
+        
+        ## doit passer tests
         # if tournament.name == "Ecup":
         #     print(ctx.message.channel.id)
         #     for temp in data:
         #         if temp['ewb_RoomID'] == ctx.message.channel.id:
-        #             id_team == int(temp['ewb_RoomID'])
+        #             id_team = int(temp['ewb_ID'])
         # print(to_show)
-        print(data)
+
         teams_to_show = tournaments_helper.teams_selector(self, id_team, data, ctx.message.author)
         if teams_to_show:
             embeds = await templates.create_registrations_embed(self, tournament, teams_to_show)
@@ -79,7 +76,7 @@ class TeamsManager(commands.Cog):
                 print(x)
                 await ctx.send(embed = x)
         else:
-            await ctx.send("> [ewb] Pas de résultat")
+            await ctx.send("> [ewb] Pas de résultat. Essayer `rkg/ecup.voir NomEquipe`")
     
     # @commands.command()
     # async def cherche(self, *search):
