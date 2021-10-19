@@ -277,8 +277,8 @@ class TeamsManager(commands.Cog):
             
             if object_to_change == "valid":
                gsheet.set_data_team_to_sheet(tournament, target, new_value)
-                target = f"ED{row}"
-                gsheet.set_data_team_to_sheet(tournament, target, str(ctx.message.author))
+               target = f"ED{row}"
+               gsheet.set_data_team_to_sheet(tournament, target, str(ctx.message.author))
             else:    
                 gsheet.set_data_team_to_sheet(tournament, target, str(new_value))
 
