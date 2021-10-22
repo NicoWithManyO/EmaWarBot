@@ -42,7 +42,7 @@ class Tos(commands.Cog):
 
 
     @commands.command()
-    # @commands.has_role("Staff E-magine ⭐")
+    @commands.has_role("Staff E-magine ⭐")
     async def newTos(self, ctx, roster, troll=None):
         final_teams_list = []
         matchs_list = []
