@@ -43,10 +43,10 @@ class RoundMatchsWatcher(commands.Cog):
         tournament = None
         channel = self.ewb.get_channel(ewb_config.war_log_channel)
         for x in tournaments_config.active_tournaments:
-            if x == "ecup":
-                tournament = self.ewb.ecup
-            # if x == "ranking":
-                # tournament = self.ewb.ranking
+            # if x == "ecup":
+            #     tournament = self.ewb.ecup
+            if x == "ranking":
+                tournament = self.ewb.ranking
         self.round_full_matchs_list = tournament.get_round_matchs_list('full')
         self.round_mixt_matchs_list = tournament.get_round_matchs_list('mixt')
         to_check = [self.round_mixt_matchs_list, self.round_full_matchs_list]
@@ -66,7 +66,7 @@ class RoundMatchsWatcher(commands.Cog):
                                 await channel.send(f"Adversaire correspondant {match['ewb_Tag']} vs {war.opponent.tag} {war.team_size}players {war.state}")
                                 # await channel.send(f"endTime{war.end_time}")
                                 if war.state == "inWar":
-                                    await channel.send(f"**LIVE SCORE** {war.clan.destruction} {war.clan.stars} VS {war.opponent.stars} {war.opponent.destruction} - {war.state}")
+                                    await channel.send(f"**LIVE SCORE** {match['ewb_TeamA']} {war.clan.destruction} {war.clan.stars} VS {war.opponent.stars} {war.opponent.destruction} {match['ewb_TeamB']}- {war.state}")
                                 if war.state == "inWar" or war.state == "warEnded":
                                     if match['ewb_PlayersOK'] == "FALSE":
                                         await channel.send(f"[ewb] Récupération des joueurs")
