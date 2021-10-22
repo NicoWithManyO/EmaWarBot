@@ -2,7 +2,8 @@
 import discord
 from discord.ext import commands
 
-from time import strftime
+import datetime
+import time
 
 import helpers.tournaments_helper as tournaments_helper
 
@@ -50,10 +51,6 @@ class TeamsManager(commands.Cog):
                 o = o + 1
                 await ctx.send(f"> {emojis.discord} `{o}.` {finded.mention} `{finded}` {finded.id}")
     
-    @commands.command()
-    @commands.has_role("Staff E-magine ⭐")
-    async def test(self, ctx):
-        await ctx.send("ok")
     
     @commands.command()
     async def voir(self, ctx, *id_team):
@@ -84,66 +81,7 @@ class TeamsManager(commands.Cog):
                 await ctx.send(embed = x)
         else:
             await ctx.send("> [ewb] Pas de résultat. Essayer `rkg/ecup.voir NomEquipe`")
-    
-    # @commands.command()
-    # async def cherche(self, *search):
-    #     o = ' '.join(*search)
-    #     await gsheet.teams_helper.search_referent(self, search)
-    
-    @commands.command()
-    @commands.has_role("Staff E-magine ⭐")
-    async def tos(self, ctx, roster, troll=None):
-        final_teams_list = []
-        matchs_list = []
-        tournament = tournaments_helper.select_tournament(self, ctx.message.content)
-        data = tournament.get_registrations_teams_list()
-        for team in data:
-            if team['ewb_Roster'].lower() == roster.lower():
-                if team['ewb_FinalState'] == "Validée":
-                    final_teams_list.append(f"{team['ewb_NomEquipe']}")
-        await ctx.send(f"{roster} {len(final_teams_list)} équipes : {' `|` '.join(final_teams_list)}")
-        nbre_teams = len(final_teams_list)
-        # final_teams_list = ["1", "2", "o","zi", "3"]
-        pair = []
-        pair = []
-        matchs_list = []
-        exempt = None
-        await ctx.send(f"> [ewb] Tirage {tournament} {str(roster).title()}\n{nbre_teams} équipes\n{round(nbre_teams / 2)} matchs")
-        while len(final_teams_list) > 0:
-            current = random.choice(final_teams_list)
-            final_teams_list.remove(current)
-            pair.append(current)
-            if len(pair) == 2:
-                matchs_list.append(pair)
-                pair = []
-        print(len(final_teams_list))
-        print(pair)
-        if pair:
-            await ctx.send(f"exempt : {pair[0]}")
-            exempt = pair[0]
-        # await ctx.send(matchs_list)
-        o = 0
-        for match in matchs_list:
-            o = o + 1
-            if troll != "notroll":
-                await ctx.send(f"`{o}`.||**{match[0]}**|| `vs` ||**{match[1]}**||")
-                if exempt:
-                    await ctx.send(f"Exempt : {exempt}")
-            else:
-                await ctx.send(f"`{o}`.**{match[0]}** `vs` **{match[1]}**")
-                if exempt:
-                    await ctx.send(f"Exempt : {exempt}")
-        if roster.lower() == "mixt":
-            target = f"A1"
-            target_exempt = f"C1"
-        if roster.lower() == "full":
-            target = f"F1"
-            target_exempt = f"H1"
-        
-        print(gsheet.set_data_tos_to_sheet(tournament, target, matchs_list))
-        if exempt:
-            print(gsheet.set_data_tos_to_sheet(tournament, target_exempt, exempt))
-   
+
     
     @commands.command()
     async def recap(self, ctx, option=None):
@@ -221,7 +159,7 @@ class TeamsManager(commands.Cog):
     @commands.command()
     # @commands.has_permissions(manage_messages = True)
     @commands.has_role("Staff E-magine ⭐")
-    async def change(self, ctx, id_team:int, object_to_change, *new_value):
+    async def change(self, ctx, id_team:int, object_to_change, new_value=None):
         tournament = tournaments_helper.select_tournament(self, ctx.message.content)
         data = tournament.get_registrations_teams_list()
         # if tournament.name == "Ecup":
@@ -287,7 +225,6 @@ class TeamsManager(commands.Cog):
                gsheet.set_data_team_to_sheet(tournament, target, new_value)
                target = f"ED{row}"
                gsheet.set_data_team_to_sheet(tournament, target, str(ctx.message.author.display_name))
-               # print(strftime(%Y-%m-%d %H:%M:%S, datetime.now()))
             else:    
                 gsheet.set_data_team_to_sheet(tournament, target, str(new_value))
 

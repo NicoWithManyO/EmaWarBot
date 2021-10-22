@@ -47,6 +47,9 @@ class TournamentsManager():
         self.round_matchs_list = gsheet.get_round_matchs(self, roster)
         return self.round_matchs_list
 
+    def get_already_played(self, roster):
+        return gsheet.get_already_played(self, roster)
+
     def get_new_registrations_list(self):
         old = len(self.registrations_teams_list)
         self.registrations_teams_list = gsheet.get_registrations(self)
@@ -67,8 +70,13 @@ class TournamentsManager():
         return gsheet.get_round_on_sheet(self)
     
     def get_last_row_on_players_data(self):
-
         row = gsheet.get_last_row_on_players_data(self)
+        row = int(row.row + 1)
+        return row
+    
+    def get_last_row_on_calc(self, roster):
+        # def get_last_row_on_calc(self, roster):
+        row = gsheet.get_last_row_on_players_data(self, roster)
         row = int(row.row + 1)
         return row
     

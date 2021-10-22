@@ -13,6 +13,21 @@ def get_registrations(self):
             response.append(row)
     return response
 
+def get_already_played(self, roster):
+    if roster == "mixt":
+        data = pd.DataFrame(self.config_file.calc_mixt.get_all_records())
+    if roster == "full":
+        data = pd.DataFrame(self.config_file.calc_full.get_all_records())
+    played_matchs = []
+    for index, row in data.iterrows():
+        if (row['ForfaitA'] and row['ForfaitB']) != 'TRUE' and row['ewb_Round'] != "":
+            id_match = f"{row['ewb_TeamA']}/{row['ewb_TeamB']}/{row['ewb_Round']}"
+            played_matchs.append(id_match)
+            reverse_id_match = f"{row['ewb_TeamB']}/{row['ewb_TeamA']}/{row['ewb_Round']}"
+            played_matchs.append(reverse_id_match)
+    return played_matchs
+    
+
 def get_round_matchs(self, roster):
     response = []
     data_mixt = pd.DataFrame(self.config_file.calc_mixt.get_all_records())
@@ -33,12 +48,24 @@ def set_data_team_to_sheet(self, target, data):
 def set_data_tos_to_sheet(self, target, data):
     return self.config_file.tos_wk.update(target, data)
 
+def set_data_tos_to_calc_sheet(self, target, data, roster):
+    if roster == "mixt":
+        return self.config_file.calc_mixt.update(target, data)
+    if roster == "full":
+        return self.config_file.calc_full.update(target, data)
+
 def set_data_players_to_sheet(self, target, data):
     return self.config_file.players_wk.update(target, data)
 
 def get_last_row_on_players_data(self):
     return self.config_file.players_wk.find("ewb_last")
 
+def get_last_row_on_calc(self, roster):
+    if roster == "mixt":
+        return self.config_file.calc_mixt.find("ewb_last")
+    if roster == "full":
+        return self.config_file.calc_full.find("ewb_last")
+    
 def set_validator_team_to_sheet(self, target, data):
     return self.config_file.import_wk.update(target, data)
 
