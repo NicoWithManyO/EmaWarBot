@@ -101,7 +101,11 @@ class TournamentsManager():
         data = new_gsheet.get_all_calc_datas(self, roster)
         for index, row in data.iterrows():
             if row['ewb_TeamA'] == team or row['ewb_TeamB'] == team:
-                response.append(f"`{row['ewb_Round']}` `{row['ewb_TeamA'][:9]:>9}` `{row['PERCENT']:>4}%` **`{row['STARS']:>2}`** {emojis.vs} **`{row['STARS_OPP']:<2}`** `{row['PERCENT_OPP']:<4}%` `{row['ewb_TeamB'][:9]:<9}`\n")
+                if type(row['PERCENT']) == str:
+                    percent = row['PERCENT'].replace(",",".")
+                if type(row['PERCENT_OPP']) == str:
+                    percent_opp = row['PERCENT_OPP'].replace(",",".")
+                response.append(f"`J{row['ewb_Round']}`.`{row['ewb_TeamA'][:9]:>9}` `{percent:>4}%` **`{row['STARS']:>2}`** {emojis.vs} **`{row['STARS_OPP']:<2}`** `{percent_opp:<4}%` `{row['ewb_TeamB'][:9]:<9}`\n")
         return response
         
     def get_team_classement(self, roster, team):
