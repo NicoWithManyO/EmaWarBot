@@ -109,7 +109,7 @@ class TournamentsManager():
         for index, row in data.iterrows():
             # clt_Place	clt_Equipe	clt_Joué	clt_V	clt_Pts	clt_Diff	clt_PercentOff	clt_MoyStarsOff
             if row['clt_Equipe'] == team or row['clt_Equipe'] == team:
-                return f"**`{row['clt_Place']:>2}`.`{row['clt_Equipe']}` `{row['clt_Pts']:>2}`pts** | `{row['clt_V']}`vict. | diff.`{row['clt_Diff']:>2}{emojis.sar}`"
+                return f"**`{row['clt_Place']:>2}`.`{row['clt_Equipe']}` `{row['clt_Pts']:>2}`pts** | `{row['clt_V']}`vict. | diff.`{row['clt_Diff']:>2}{emojis.star}`"
 
     def get_team_players(self, team):
         response = []
