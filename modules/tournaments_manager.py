@@ -109,17 +109,19 @@ class TournamentsManager():
         for index, row in data.iterrows():
             # clt_Place	clt_Equipe	clt_Joué	clt_V	clt_Pts	clt_Diff	clt_PercentOff	clt_MoyStarsOff
             if row['clt_Equipe'] == team or row['clt_Equipe'] == team:
-                return f"**`{row['clt_Place']:>2}`.`{row['clt_Equipe']}` `{row['clt_Pts']:>2}`pts** | `{row['clt_V']}`vict. | diff.`{row['clt_Diff']:>2}{emojis.star}`"
+                return f"**`{row['clt_Place']:>2}`.`{row['clt_Equipe']}` `{row['clt_Pts']:>2}`pts** | `{row['clt_V']:>1}`vict. | diff.{emojis.star}`{row['clt_Diff']:>2}`"
 
-    def get_team_players(self, team):
+    def get_team_players(self, team, roster):
         response = []
         data = new_gsheet.get_all_players_data(self)
         o = 0
         for index, row in data.iterrows():
             # ewb_PLayerTag	eb_PlayerTeam	ewb_PlayerName
             if row['ewb_PlayerTeam'] == team:
-                o = o + 1
-                response.append(f"`{o}`. `{row['ewb_PlayerTag']:>10}` **{row['ewb_PlayerName']}**\n")
+                print(roster)
+                if row['ewb_PlayerRoster'] == roster:
+                    o = o + 1
+                    response.append(f"`{o}`. `{row['ewb_PlayerTag']:>10}` **{row['ewb_PlayerName']}**\n")
         return response
 
     def get_player_by_tag(self, tag):

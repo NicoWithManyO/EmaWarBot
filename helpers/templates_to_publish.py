@@ -147,13 +147,14 @@ async def create_registrations_embed(self, tournament, teams_list):
         # embed.add_field(name="o", value = tournament.config_file.liens_utiles, inline= False)
         if len(teams_list) == 1:
             teams_matchs = tournament.get_team_matchs(x['ewb_Roster'].lower(), x['ewb_NomEquipe'])
-            teams_clt = tournament.get_team_classement(x['ewb_Roster'].lower(), x['ewb_NomEquipe'])
-            team_players = tournament.get_team_players(x['ewb_NomEquipe'])
+            # team_players = tournament.get_team_players(x['ewb_NomEquipe'], x['ewb_Roster'])
             if x['ewb_New'] != "TRUE" and len(teams_matchs) != 0:
                 embed.add_field(name="Matchs", value = f"{''.join(teams_matchs)}", inline= False)
             if tournament.name == "Ranking" and x['ewb_New'] != "TRUE":
+                teams_clt = tournament.get_team_classement(x['ewb_Roster'].lower(), x['ewb_NomEquipe'])
                 embed.add_field(name="Classement actuel", value = f"{teams_clt}", inline= False)
             if tournament.name == "Ecup":
+                team_players = tournament.get_team_players(x['ewb_NomEquipe'], x['ewb_Roster'])
                 embed.add_field(name="Joueurs", value = f"{''.join(team_players)}", inline= False)
         response.append(embed)
     return response
