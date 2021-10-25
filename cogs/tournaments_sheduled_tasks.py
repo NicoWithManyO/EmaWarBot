@@ -76,7 +76,7 @@ class TournamentsSheduledTasks(commands.Cog):
                     to_show = await templates.create_registrations_embed(self, tournament, new_registrations_list)
                     for x in to_show:
                         await channel.send(embed = x)
-                        await channel.send("Cet affichage vous confirme que votre inscription est reçue. **Comprenez bien qu'elle doit être confirmée et validée**, dans les plus bref délais ! Sans quoi elle ne sera pas prise en compte\n-")
+                        await channel.send("Cet affichage vous confirme que votre inscription est reçue. **Comprenez bien qu'elle doit être confirmée et validée**\nMerci de nous dire si toutes les informations sont correctes, ou au contraire si quelque chose est à modifier, dans le #bistrot, ou le #flood pour les nouvelles équipes.")
                 else:
                     print(f"{tournament} registrations : {len(tournament.registrations_teams_list)} no new registration")
             print(tournament)
