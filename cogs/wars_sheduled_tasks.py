@@ -11,8 +11,9 @@ import config_files.tournaments_config as tournaments_config
 import helpers.ingame_helper as ingame
 import helpers.gsheet_helper as gsheet
 import config_files.ewb_bot as ewb_config
+import config_files.emojis as emojis
 
-class RoundMatchsWatcher(commands.Cog):
+class WarsSheduledTasks(commands.Cog):
     def __init__(self, ewb):
         self.ewb = ewb
         # self.start_round_matchs_detection()
@@ -20,10 +21,10 @@ class RoundMatchsWatcher(commands.Cog):
 
     def stop_round_matchs_detection(self):
         self.scores_watcher.stop()
-        return f"[ewb] WarsWatcher `off`"
+        return f"[ewb.WarsWatcher] `off`"
     def start_round_matchs_detection(self):
         self.scores_watcher.start()
-        return f"[ewb] WarsWatcher `on`"
+        return f"[ewb.WarsWatcher] `on`"
     
     @commands.command()
     @commands.has_permissions(manage_messages = True)
@@ -32,7 +33,7 @@ class RoundMatchsWatcher(commands.Cog):
             try:
                 await ctx.send(self.start_round_matchs_detection())
             except:
-                await ctx.send(f"[ewb] WarWatcher `processus en cours`")
+                await ctx.send(f"[ewb.WarWatcher] `processus en cours`")
         elif value == "off".lower():
             await ctx.send(self.stop_round_matchs_detection())
     
@@ -43,18 +44,24 @@ class RoundMatchsWatcher(commands.Cog):
         tournament = None
         channel = self.ewb.get_channel(ewb_config.war_log_channel)
         for x in tournaments_config.active_tournaments:
-            # if x == "ecup":
-            #     tournament = self.ewb.ecup
+            if x == "ecup":
+                tournament = self.ewb.ecup
             if x == "ranking":
                 tournament = self.ewb.ranking
         self.round_full_matchs_list = tournament.get_round_matchs_list('full')
         self.round_mixt_matchs_list = tournament.get_round_matchs_list('mixt')
         to_check = [self.round_mixt_matchs_list, self.round_full_matchs_list]
-        # await channel.send(f"> [ewb] WarWatcher")
+        await channel.send(f"> [ewb.WarsWatcher] {tournament}")
+        o = 0
+        launched = 0
+        ended = 0
+        no_finded = 0
         for x in to_check:
             for match in x:
                 if match['ewb_ARecup'] == 'TRUE':
-                    await channel.send(f"> emaMatch `{match['ewb_IDMatch']}` **{match['ewb_TeamA']}** {match['ewb_Tag']} VS {match['ewb_TagOpp']} **{match['ewb_TeamB']}**")
+                    o = o + 1
+                    roster = match['ewb_IDMatch'][:4]
+                    await channel.send(f"> emaMatch `{o}`. `{match['ewb_IDMatch']}` **{roster}** {match['ewb_Tag']} **{match['ewb_TeamA']}** {emojis.vs} **{match['ewb_TeamB']}** {match['ewb_TagOpp']} (prévue : {match['ewb_Horaire']} {match['ewb_ModifDate']})")
                     war = await ingame.check_current_war(self, match['ewb_Tag'])
                     if type(war) == coc.wars.ClanWar:
                         if match['ewb_Tag'] == war.clan.tag:
@@ -63,13 +70,15 @@ class RoundMatchsWatcher(commands.Cog):
                             # print(war.opponent.tag)
                             if match['ewb_TagOpp'] == war.opponent.tag:
                                 
-                                await channel.send(f"Adversaire correspondant {match['ewb_Tag']} vs {war.opponent.tag} {war.team_size}players {war.state}")
-                                # await channel.send(f"endTime{war.end_time}")
+                                await channel.send(f"Match détecté : **{roster}** {match['ewb_Tag']} **{match['ewb_TeamA']}** {emojis.vs} **{match['ewb_TeamB']}** {match['ewb_TagOpp']} | {war.state} | {war.team_size}players | startTime{war.start_time}")
+                                # await channel.send(f"Adversaire correspondant {match['ewb_Tag']} vs {war.opponent.tag} {war.team_size}players {war.state} | endTime{war.end_time}")
                                 if war.state == "inWar":
-                                    await channel.send(f"**LIVE SCORE** {match['ewb_TeamA']} {war.clan.destruction} {war.clan.stars} VS {war.opponent.stars} {war.opponent.destruction} {match['ewb_TeamB']}- {war.state}")
+                                    await channel.send(f"{emojis.live} **LIVE SCORE** {match['ewb_TeamA']} {war.clan.destruction} {war.clan.stars} {emojis.vs} {war.opponent.stars} {war.opponent.destruction} {match['ewb_TeamB']} | {war.state}")
+                                    # print(''.join(war.attacks))
                                 if war.state == "inWar" or war.state == "warEnded":
+                                    launched = launched + 1
                                     if match['ewb_PlayersOK'] == "FALSE":
-                                        await channel.send(f"[ewb] Récupération des joueurs")
+                                        await channel.send(f"> [ewb] Récupération des joueurs")
                                         players = []
                                         for player in war.clan.members:
                                             players.append([match['ewb_IDMatch'], match['ewb_TeamA'], player.name, player.tag])
@@ -81,6 +90,7 @@ class RoundMatchsWatcher(commands.Cog):
                                     else:
                                         await channel.send(f"Joueurs ok {match['ewb_IDMatch']}")
                                 if war.state == "warEnded":
+                                    ended = ended + 1
                                     score = [[war.clan.destruction, war.clan.stars, war.opponent.stars, war.opponent.destruction, war.status]]
                                     print(score)
                                     await channel.send(score)
@@ -96,9 +106,10 @@ class RoundMatchsWatcher(commands.Cog):
                     # print("Récupération désactivée")
                     pass
         print("fin")
+        await channel.send(f"Total : {o} | Lancé(s) : {launched} | Fini(s) : {ended}")
         # await channel.send(f"> [ewb] fin.")
 
 
     
 def setup(bot):
-    bot.add_cog(RoundMatchsWatcher(bot))
+    bot.add_cog(WarsSheduledTasks(bot))

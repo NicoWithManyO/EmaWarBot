@@ -5,6 +5,7 @@ import config_files.all_tournaments.ranking as ranking_config
 import config_files.all_tournaments.ecl as ecl_config
 
 import helpers.gsheet_helper as gsheet
+import helpers.new_gsheet_helper as new_gsheet
 
 import config_files.emojis as emojis
 
@@ -76,7 +77,7 @@ class TournamentsManager():
     
     def get_last_row_on_calc(self, roster):
         # def get_last_row_on_calc(self, roster):
-        row = gsheet.get_last_row_on_players_data(self, roster)
+        row = gsheet.get_last_row_on_calc(self, roster)
         row = int(row.row + 1)
         return row
     
@@ -94,7 +95,44 @@ class TournamentsManager():
         return gsheet.set_validator_team_to_sheet(self, target, data)
 
 
+    ## NEW
+    def get_team_matchs(self, roster, team):
+        response = []
+        data = new_gsheet.get_all_calc_datas(self, roster)
+        for index, row in data.iterrows():
+            if row['ewb_TeamA'] == team or row['ewb_TeamB'] == team:
+                response.append(f"`{row['ewb_Round']}` `{row['ewb_TeamA'][:9]:>9}` `{row['PERCENT']:>4}%` **`{row['STARS']:>2}`** {emojis.vs} **`{row['STARS_OPP']:<2}`** `{row['PERCENT_OPP']:<4}%` `{row['ewb_TeamB'][:9]:<9}`\n")
+        return response
+        
+    def get_team_classement(self, roster, team):
+        data = new_gsheet.get_all_calc_datas(self, roster)
+        for index, row in data.iterrows():
+            # clt_Place	clt_Equipe	clt_Joué	clt_V	clt_Pts	clt_Diff	clt_PercentOff	clt_MoyStarsOff
+            if row['clt_Equipe'] == team or row['clt_Equipe'] == team:
+                return f"**`{row['clt_Place']:>2}` `{row['clt_Equipe']}`** `{row['clt_Joué']}`j `{row['clt_V']}`v **`{row['clt_Pts']:>2}`pts** diff`{row['clt_Diff']:>2}` moyOff`{row['clt_PercentOff']:>4}%`"
 
+    def get_team_players(self, team):
+        response = []
+        data = new_gsheet.get_all_players_data(self)
+        o = 0
+        for index, row in data.iterrows():
+            # ewb_PLayerTag	eb_PlayerTeam	ewb_PlayerName
+            if row['ewb_PlayerTeam'] == team:
+                o = o + 1
+                response.append(f"`{o}`. `{row['ewb_PlayerTag']:>10}` **{row['ewb_PlayerName']}**\n")
+        return response
+
+    def get_player_by_tag(self, tag):
+        data = new_gsheet.get_all_players_data(self)
+        response = []
+        print(tag)
+        for index, row in data.iterrows():
+            if row['ewb_PlayerTag'] == tag:
+                response.append(f"`{row['ewb_PlayerTag']:>10}` **{row['ewb_PlayerName']}** a joué pour **{row['ewb_PlayerTeam']}** en **{row['ewb_PlayerRoster']}**\n")
+        if len(response) == 0:
+            return f"Pas de résultat pour {tag}"
+        else:
+            return response
     
 # CLASS ENFANTS
 class Ranking(TournamentsManager):

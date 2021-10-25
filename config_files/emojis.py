@@ -12,7 +12,6 @@ coche = "<:coche:890080383411032064>"
 add = "<:add:867704166209814548>"
 remove = "<:remove:867702730751868948>"
 right_arrow = "<:right_arrow:867704328868724776>"
-
 # deco bot
 loading = "<a:load3:849134763935924235>"
 loading2 = "<a:load2:849134690530230303>"
@@ -25,6 +24,8 @@ discord = "<:discord:848504368226369536>"
 down = "👇"
 up = ":point_up:"
 twitter = "<:twitter:861329820800254024>"
+vs = "🆚"
+live = "<:live:745854098557108336>"
 # tricks
 blank = "\u200b"
 py = "<:py:849752239471460414>"

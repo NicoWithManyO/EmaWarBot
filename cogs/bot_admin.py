@@ -43,6 +43,7 @@ class BotAdmin(commands.Cog):
 
     @commands.command(name="invite", aliases = ["invit", "lien"])
     async def invit(self, ctx):
+        """ Renvoi le lien d'invitation du serveur. A partager ... """
         await ctx.send(embed = templates.create_std_embed(self, ctx, title = "Partagez ce lien pour inviter vos amis sur E-magine Gaming", desc = f"> ** https://discord.gg/4yAZ2wV **\n\nLiens utiles : [Calendrier](https://s.divlo.fr/CalendrierEma) | [Twitter Ema](https://twitter.com/emagine_gaming?lang=fr)"))
         print(f"Retrouvez aussi : le [Calendrier](https://s.divlo.fr/CalendrierEma) | [Twitter Ema](https://twitter.com/emagine_gaming?lang=fr)")
 

@@ -23,6 +23,7 @@ def teams_selector(self, querry, data, search_author):
         except:
             for team in data:
                 if str(team['ewb_NomEquipe']).lower() in querry.lower() or querry.lower() in str(team['ewb_NomEquipe']).lower():
+                #or querry.lower() in str(team['ewb_Ref1']).lower() or str(team['ewb_Ref1']).lower() in querry.lower() or querry.lower() in str(team['ewb_Ref2']).lower() or str(team['ewb_Ref2']).lower() in querry.lower():
                     to_show.append(team)
     return to_show
         

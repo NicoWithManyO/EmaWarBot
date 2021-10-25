@@ -29,12 +29,14 @@ def write_tos(tos, roster, exempt, tournament):
 
 def write_tos_to_calc(tos, roster, exempt, tournament):
     if roster.lower() == "mixt":
-        target = f"O1"
-        target_exempt = f"Q1"
-    if roster.lower() == "full":
-        target = f"X1"
-        target_exempt = f"Z1"
-    return gsheet.set_data_tos_to_sheet(tournament, target, tos)
+        row = tournament.get_last_row_on_calc(roster)
+        
+    #     target = f"O1"
+    #     target_exempt = f"Q1"
+    # if roster.lower() == "full":
+    #     target = f"X1"
+    #     target_exempt = f"Z1"
+    # return gsheet.set_data_tos_to_sheet(tournament, target, tos)
 
 class Tos(commands.Cog):
     def __init__(self, ewb):
@@ -43,7 +45,7 @@ class Tos(commands.Cog):
 
     @commands.command()
     @commands.has_role("Staff E-magine ⭐")
-    async def newTos(self, ctx, roster, troll=None):
+    async def tos(self, ctx, roster, troll=None):
         final_teams_list = []
         matchs_list = []
         exempt = ""
@@ -95,12 +97,14 @@ class Tos(commands.Cog):
             await  ctx.send(f"**{final_teams_list[0]}** est exempt")
             print(final_teams_list[0])
             exempt = final_teams_list[0]
+        print(await ctx.send(write_tos(matchs_list, roster, exempt, tournament)))
+        # write_tos_to_calc(matchs_list, roster, exempt, tournament
         
-        while True:
-            reaction = await addiing(message)
-            # reaction = await self.ewb.wait_for_reaction(emoji="{emojis.mixt}", message=message)
-            await ctx.send(write_tos(matchs_list, roster, exempt, tournament))
-            await ctx.send("ok. fin")
+        # while True:
+        #     reaction = await addiing(message)
+        #     # reaction = await self.ewb.wait_for_reaction(emoji="{emojis.mixt}", message=message)
+        #     await ctx.send(write_tos(matchs_list, roster, exempt, tournament))
+        #     await ctx.send("ok. fin")
 
 def setup(bot):
     bot.add_cog(Tos(bot))

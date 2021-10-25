@@ -13,6 +13,13 @@ def get_registrations(self):
             response.append(row)
     return response
 
+# def get_all_matchs(self, roster):
+#     if roster == "mixt":
+#         data = pd.DataFrame(self.config_file.calc_mixt.get_all_records())
+#     if roster == "full":
+#         data = pd.DataFrame(self.config_file.calc_full.get_all_records())
+#     all_matchs = []
+
 def get_already_played(self, roster):
     if roster == "mixt":
         data = pd.DataFrame(self.config_file.calc_mixt.get_all_records())
@@ -41,6 +48,7 @@ def get_round_matchs(self, roster):
             if row['ewb_TeamB'] != "" and row['ewb_ARecup'] == "TRUE":
                 response.append(row)
     return response
+
 
 def set_data_team_to_sheet(self, target, data):
     return self.config_file.import_wk.update(target, data)

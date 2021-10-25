@@ -91,9 +91,9 @@ async def create_registrations_embed(self, tournament, teams_list):
                 if x['Validée'] == "TRUE":
                     await user.add_roles(ref_role)
                     await user.add_roles(season_role)
-                # if x['Validée'] == "FALSE":
-                #     await user.remove_roles(ref_role)
-                #     await user.remove_roles(season_role)
+                if x['Validée'] == "FALSE" and x['ewb_New'] == "TRUE":
+                    await user.remove_roles(ref_role)
+                    await user.remove_roles(season_role)
         if x['ewb_Ref2'] != "":
             if (ref2):
                 if len(ref2) == 1:
@@ -102,9 +102,9 @@ async def create_registrations_embed(self, tournament, teams_list):
                         if x['Validée'] == "TRUE":
                             await user.add_roles(ref_role)
                             await user.add_roles(season_role)
-                        # if x['Validée'] == "FALSE":
-                        #     await user.remove_roles(ref_role)
-                        #     await user.remove_roles(season_role)
+                        if x['Validée'] == "FALSE" and x['ewb_New'] == "TRUE":
+                            await user.remove_roles(ref_role)
+                            await user.remove_roles(season_role)
         if x['ewb_Roster'] == "Mixt":
             roster = f"{emojis.mixt}ixt"
         if x['ewb_Roster'] == "Full":
@@ -145,7 +145,16 @@ async def create_registrations_embed(self, tournament, teams_list):
         # for match in matchs_list:
         #     print(match)
         # embed.add_field(name="o", value = tournament.config_file.liens_utiles, inline= False)
-        
+        if len(teams_list) == 1:
+            teams_matchs = tournament.get_team_matchs(x['ewb_Roster'].lower(), x['ewb_NomEquipe'])
+            teams_clt = tournament.get_team_classement(x['ewb_Roster'].lower(), x['ewb_NomEquipe'])
+            team_players = tournament.get_team_players(x['ewb_NomEquipe'])
+            if x['ewb_New'] != "TRUE" and len(teams_matchs) != 0:
+                embed.add_field(name="Matchs", value = f"{''.join(teams_matchs)}", inline= False)
+            if tournament.name == "Ranking" and x['ewb_New'] != "TRUE":
+                embed.add_field(name="Classement actuel", value = f"{teams_clt}", inline= False)
+            if tournament.name == "Ecup":
+                embed.add_field(name="Joueurs", value = f"{''.join(team_players)}", inline= False)
         response.append(embed)
     return response
     

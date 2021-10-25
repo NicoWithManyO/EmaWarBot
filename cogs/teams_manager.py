@@ -77,10 +77,9 @@ class TeamsManager(commands.Cog):
             embeds = await templates.create_registrations_embed(self, tournament, teams_to_show)
             
             for x in embeds:
-                print(x)
                 await ctx.send(embed = x)
         else:
-            await ctx.send("> [ewb] Pas de résultat. Essayer `rkg/ecup.voir NomEquipe`")
+            await ctx.send("> [ewb] Pas de résultat. Essayer `rkg.voir NomEquipe` ou `ecup.voir NomEquipe`")
 
     
     @commands.command()
@@ -167,15 +166,19 @@ class TeamsManager(commands.Cog):
         #     for temp in data:
         #         if temp['ewb_RoomID'] == ctx.message.channel.id:
         #             id_team == int(temp['ewb_RoomID'])
+        print(new_value)
         teams_to_show = tournaments_helper.teams_selector(self, id_team, data, ctx.message.author)
-        if new_value[0].startswith("<@!"):
-            new_value = new_value[0].replace("<@!","").replace(">","")
+        if new_value.startswith("<@!") or new_value.startswith("<@"):
+            if new_value.startswith("<@!"):
+                new_value = new_value.replace("<@!","").replace(">","")
+            if new_value.startswith("<@"):
+                new_value = new_value.replace("<@","").replace(">","")
             new_value = int(new_value)
             new_member = discord.utils.get(ctx.guild.members,id=int(new_value))
             new_value = new_member
-            # await ctx.send(f"[ewb.debug] {new_value} / {new_member.name} / {new_value.display_name} {new_value.avatar_url}")
+            await ctx.send(f"[ewb.debug] {new_value} / {new_member.name}")
         else:        
-            new_value = str(' '.join(new_value))
+            new_value = str(''.join(new_value))
         print(new_value)
         if teams_to_show:
             for team in teams_to_show:

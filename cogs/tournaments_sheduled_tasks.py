@@ -50,15 +50,15 @@ class TournamentsSheduledTasks(commands.Cog):
         tournament = None
         channel = self.ewb.get_channel(ewb_config.registrations_log_channel)
         for x in tournaments_config.active_tournaments:
-            if x == "ecup":
-                tournament = self.ewb.ecup
+            # if x == "ecup":
+            #     tournament = self.ewb.ecup
             if x == "ranking":
                 tournament = self.ewb.ranking
             new_registrations_list = tournament.get_new_registrations_list()
             if tournament.config_file.registrations_is_open:
                 if new_registrations_list:
-                    
                     for team in new_registrations_list:
+                        print(tournament)
                         await channel.send(f"> [ewb] Réception de {team['ewb_NomEquipe']}")
                         ref = await teams_helper.search_referent(self, team['ewb_Ref1'])
                         if len(ref) == 1:
