@@ -103,8 +103,12 @@ class TournamentsManager():
             if row['ewb_TeamA'] == team or row['ewb_TeamB'] == team:
                 if type(row['PERCENT']) == str:
                     percent = row['PERCENT'].replace(",",".")
+                else:
+                    percent = row['PERCENT']
                 if type(row['PERCENT_OPP']) == str:
                     percent_opp = row['PERCENT_OPP'].replace(",",".")
+                else:
+                    percent_opp = row['PERCENT_OPP']
                 response.append(f"`J{row['ewb_Round']}`.`{row['ewb_TeamA'][:9]:>9}` `{percent:>4}%` **`{row['STARS']:>2}`** {emojis.vs} **`{row['STARS_OPP']:<2}`** `{percent_opp:<4}%` `{row['ewb_TeamB'][:9]:<9}`\n")
         return response
         
