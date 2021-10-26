@@ -154,7 +154,24 @@ class TeamsManager(commands.Cog):
             if roster.lower() == "f":
                 await ctx.send(f"> {len(full)} **Full** {' '.join(full)}")
             
-
+    @commands.command()
+    @commands.has_role("Staff E-magine ⭐")
+    async def valid(self, ctx, id_team:int): 
+        tournament = tournaments_helper.select_tournament(self, ctx.message.content)
+        data = tournament.get_registrations_teams_list()
+        teams_to_show = tournaments_helper.teams_selector(self, id_team, data, ctx.message.author)
+        if teams_to_show:
+            for team in teams_to_show:
+                row = team['ewb_ID'] + 1
+                old = team['ewb_Valid']
+                target = f"EA{row}"
+                new_value = True
+                await ctx.send(f"> [ewb] `{tournament}` **validation OK** pour **{team['ewb_NomEquipe']}** {team['ewb_Roster']} (ancien : <{old}>)")
+                gsheet.set_data_team_to_sheet(tournament, target, new_value)
+                target = f"ED{row}"
+                gsheet.set_data_team_to_sheet(tournament, target, str(ctx.message.author.display_name))
+                
+    
     @commands.command()
     # @commands.has_permissions(manage_messages = True)
     @commands.has_role("Staff E-magine ⭐")
@@ -222,7 +239,7 @@ class TeamsManager(commands.Cog):
                     if new_value == "-":
                         new_value = False
 
-            await ctx.send(f"> [ewb] `{tournament}` Modification de **{object_to_change}** pour **{team['ewb_NomEquipe']}** (ancien : <{old}>)")
+            await ctx.send(f"> [ewb] `{tournament}` Modification de **{object_to_change}** pour **{team['ewb_NomEquipe']}** {team['ewb_Roster']} (ancien : <{old}>)")
             
             if object_to_change == "valid":
                gsheet.set_data_team_to_sheet(tournament, target, new_value)
