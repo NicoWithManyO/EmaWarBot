@@ -37,7 +37,28 @@ class WarsSheduledTasks(commands.Cog):
         elif value == "off".lower():
             await ctx.send(self.stop_round_matchs_detection())
     
-    
+    @commands.command()
+    async def horaires(self, ctx):
+        tournament = None
+        channel = self.ewb.get_channel(ewb_config.war_log_channel)
+        for x in tournaments_config.active_tournaments:
+            if x == "ecup":
+                tournament = self.ewb.ecup
+            if x == "ranking":
+                tournament = self.ewb.ranking
+        self.round_full_matchs_list = tournament.get_horaires_matchs('full')
+        self.round_mixt_matchs_list = tournament.get_horaires_matchs('mixt')
+        to_check = [self.round_mixt_matchs_list, self.round_full_matchs_list]
+        no_declaration = []
+        for x in to_check:
+            for match in x:
+                print(match['ewb_Horaire'])
+                if match['ewb_Horaire'] == "":
+                    no_declaration.append(f"{match['ewb_TeamA']}/{match['ewb_TeamB']}")
+        await ctx.send(f"__{len(no_declaration)} sans horaire :__  {' | '.join(no_declaration)}")
+        if len(no_declaration) == 0:
+            await ctx.send(f"> [ewb] Good Job les Référents !")
+
     @tasks.loop(seconds=600)
     async def scores_watcher(self):
         print("detection des matchs")

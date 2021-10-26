@@ -48,6 +48,9 @@ class TournamentsManager():
         self.round_matchs_list = gsheet.get_round_matchs(self, roster)
         return self.round_matchs_list
 
+    def get_horaires_matchs(self, roster):
+        return gsheet.get_horaires_matchs(self, roster)
+
     def get_already_played(self, roster):
         return gsheet.get_already_played(self, roster)
 

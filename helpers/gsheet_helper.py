@@ -49,6 +49,20 @@ def get_round_matchs(self, roster):
                 response.append(row)
     return response
 
+def get_horaires_matchs(self, roster):
+    response = []
+    data_mixt = pd.DataFrame(self.config_file.calc_mixt.get_all_records())
+    data_full = pd.DataFrame(self.config_file.calc_full.get_all_records())
+    if roster == "mixt":
+        for index, row in data_mixt.iterrows():
+            if row['ewb_TeamB'] != "" and row['ewb_Round'] == 3:
+                response.append(row)
+    if roster == "full":
+        for index, row in data_full.iterrows():
+            if row['ewb_TeamB'] != "" and row['ewb_Round'] == 3:
+                response.append(row)
+    return response
+
 
 def set_data_team_to_sheet(self, target, data):
     return self.config_file.import_wk.update(target, data)
