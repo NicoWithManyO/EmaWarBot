@@ -193,7 +193,6 @@ class TeamsManager(commands.Cog):
             new_value = int(new_value)
             new_member = discord.utils.get(ctx.guild.members,id=int(new_value))
             new_value = new_member
-            await ctx.send(f"[ewb.debug] {new_value} / {new_member.name}")
         else:        
             new_value = str(''.join(new_value))
         print(new_value)
@@ -219,7 +218,6 @@ class TeamsManager(commands.Cog):
                 if object_to_change.lower() == "ref1":
                     target = f"AS{row}"
                     old = team['ewb_Ref1']
-                    await ctx.send(f"[ewb.debug] {new_value} / {new_value} / url_avatar <new_value.avatar_url> / {new_value.id}")
                 if object_to_change.lower() == "ref2":
                     target = f"AT{row}"
                     old = team['ewb_Ref2']
