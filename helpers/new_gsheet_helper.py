@@ -8,7 +8,6 @@ def get_all_calc_datas(self, roster):
         data = pd.DataFrame(self.config_file.calc_full.get_all_records())
     return data
 
-
 def get_all_players_data(self):
     response = []
     return pd.DataFrame(self.config_file.players_wk.get_all_records())

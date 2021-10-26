@@ -113,6 +113,7 @@ class TeamsManager(commands.Cog):
                     full_canceled.append(f"`{team['ewb_ID']}` {team['ewb_NomEquipe']}")
                 if team['ewb_FinalState'] == "En attente de validation":
                     full_to_check.append(f"`{team['ewb_ID']}` {team['ewb_NomEquipe']}")
+        
         await ctx.send(f"> [ewb] `{tournament}`\n> **{len(mixt_all)}** {emojis.mixt}ixt")
         await ctx.send(f"**__{len(mixt_to_check)} reste(s) à valider :__ {' | '.join(mixt_to_check)}**")
         await ctx.send(f"__{len(mixt_validated)} validée(s) :__ {' | '.join(mixt_validated)}")
@@ -121,6 +122,8 @@ class TeamsManager(commands.Cog):
         await ctx.send(f"**__{len(full_to_check)} reste(s) à valider :__ {' | '.join(full_to_check)}**")
         await ctx.send(f"__{len(full_validated)} validée(s) :__ {' | '.join(full_validated)}")
         await ctx.send(f"__{len(full_canceled)} annulée(s) / refusée(s) :__  {' | '.join(full_canceled)}")
+        if len(mixt_to_check) == 0 and len(full_to_check) == 0:
+            await ctx.send(f"Good Job le Staff !")
         if option == "tos":
             response = await ctx.send(f"> [ewb] Utiliser {emojis.mixt} ou {emojis.full} pour lancer un tirage au sort")
             if tournament.name == "Ecup":
