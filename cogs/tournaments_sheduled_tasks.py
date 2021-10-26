@@ -76,7 +76,10 @@ class TournamentsSheduledTasks(commands.Cog):
                     to_show = await templates.create_registrations_embed(self, tournament, new_registrations_list)
                     for x in to_show:
                         await channel.send(embed = x)
-                        await channel.send("Cet affichage vous confirme que votre inscription est reçue. **Comprenez bien qu'elle doit être confirmée et validée**\nMerci de nous dire si toutes les informations sont correctes, ou au contraire si quelque chose est à modifier, dans le #bistrot, ou le #flood pour les nouvelles équipes.")
+                        if team['ewb_New'] == False:
+                            await channel.send("> [ewb] L'équipe {team['ewb_NomEquipe']} à déjà participé, après avoir vérifier les données (particulièrement le Roster {team['ewb_Roster']}) vous pouvez ajouter :white_check_mark:, nous validerons dès que possible ...")
+                        else:
+                            await channel.send("> [ewb] Bienvenue dans le Ranking, merci de vérifier les informations de votre inscription (le roster d'inscription particulièrement {team['ewb_Roster']}, ainsi que le nom de votre équipe {team['ewb_NomEquipe']}) ... **Merci ensuite de prendre contact (dans le #flood ou les rooms #ewb_check) avec le @Staff E-magine**, afin que nous validions définitivement votre inscription !")
                 else:
                     print(f"{tournament} registrations : {len(tournament.registrations_teams_list)} no new registration")
             print(tournament)
