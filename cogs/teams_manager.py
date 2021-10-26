@@ -123,7 +123,7 @@ class TeamsManager(commands.Cog):
         await ctx.send(f"__{len(full_validated)} validée(s) :__ {' | '.join(full_validated)}")
         await ctx.send(f"__{len(full_canceled)} annulée(s) / refusée(s) :__  {' | '.join(full_canceled)}")
         if len(mixt_to_check) == 0 and len(full_to_check) == 0:
-            await ctx.send(f"Good Job le Staff !")
+            await ctx.send(f"> Good Job le Staff !")
         if option == "tos":
             response = await ctx.send(f"> [ewb] Utiliser {emojis.mixt} ou {emojis.full} pour lancer un tirage au sort")
             if tournament.name == "Ecup":
