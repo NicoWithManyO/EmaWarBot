@@ -56,7 +56,7 @@ class Tos(commands.Cog):
             if team['ewb_Roster'].lower() == roster.lower():
                 if team['ewb_FinalState'] == "Validée":
                     final_teams_list.append(f"{team['ewb_NomEquipe']}")
-        await ctx.send(f"Matchs déjà joués : {' `|` '.join(already_played_matchs[::2])}")
+        await ctx.send(f"{len(already_played_matchs)/2} Matchs déjà joués : {' `|` '.join(already_played_matchs[::2])}")
         await ctx.send(f"**`{roster}` {len(final_teams_list)} équipes : {' `|` '.join(final_teams_list)}**")
         message = await ctx.send(f"```Tirage au sort {roster} {tournament}```")
         nbre_teams = len(final_teams_list)

@@ -37,6 +37,9 @@ class WarsSheduledTasks(commands.Cog):
         elif value == "off".lower():
             await ctx.send(self.stop_round_matchs_detection())
     
+    # @commands.command()
+    # async def addHoraire(self, ctx, )
+    
     @commands.command()
     async def horaires(self, ctx):
         tournament = None
