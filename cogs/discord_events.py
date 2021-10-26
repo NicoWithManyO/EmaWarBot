@@ -194,7 +194,7 @@ class DiscordEvents(commands.Cog):
                     to_translate = reaction.message.content
                 if target_language:
                     response = translator_helper.translate_data(target_language, to_translate)
-                    await channel_to_translate.send(f"[ewb] Message ({response.src}) from {reaction.message.author.display_name} translated into {reaction.emoji} ({response.dest})\n{response.text.replace('<@! ', '<@!').replace('<# ', '<#').replace('<@ ','<@').replace('<@& ','<@&')}")
+                    await channel_to_translate.send(f"[ewb] {response.text.replace('<@! ', '<@!').replace('<# ', '<#').replace('<@ ','<@').replace('<@& ','<@&')}")
 
 def setup(bot):
     bot.add_cog(DiscordEvents(bot))
