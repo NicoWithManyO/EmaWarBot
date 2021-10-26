@@ -154,7 +154,7 @@ class TeamsManager(commands.Cog):
             if roster.lower() == "f":
                 await ctx.send(f"> {len(full)} **Full** {' '.join(full)}")
             
-    @commands.command()
+    @commands.command(aliases = ["v"])
     @commands.has_role("Staff E-magine ⭐")
     async def valid(self, ctx, id_team:int): 
         tournament = tournaments_helper.select_tournament(self, ctx.message.content)
