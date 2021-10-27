@@ -62,6 +62,25 @@ class WarsSheduledTasks(commands.Cog):
         if len(no_declaration) == 0:
             await ctx.send(f"> [ewb] Good Job les Référents !")
 
+    @commands.command()
+    async def livewar(self, ctx, tag):
+        war = await ingame.check_current_war(self, tag)
+        if type(war) == coc.wars.ClanWar:
+            await ctx.send(f"> [ewb.LiveWarWatcher] {war.clan} {emojis.vs} {war.opponent} {war.opponent.tag}")
+            await ctx.send(f"{war.state}")
+            await ctx.send(f"> [ewb.LiveWarWatcher] Récupération des joueurs")
+            players = []
+            opp_players = []
+            if len(war.clan.members) < 10:
+                for player in war.clan.members:
+                    players.append(f"{war.clan.tag}, {player.name}, {player.tag}, TH{player.town_hall}")
+                for player in war.opponent.members:
+                    opp_players.append(f"{war.opponent.tag}, {player.name}, {player.tag}, TH{player.town_hall}")
+            await ctx.send(f"> [ewb.LiveWarWatcher] {war.clan} {war.clan.tag} {' | '.join(players)}")
+            await ctx.send(f"> [ewb.LiveWarWatcher] {war.opponent} {war.opponent.tag} {' | '.join(opp_players)}")
+        else:
+            await ctx.send(f"> [ewb.LiveWarWatcher] {war} pour {tag}")
+    
     @tasks.loop(seconds=600)
     async def scores_watcher(self):
         print("detection des matchs")
@@ -105,9 +124,9 @@ class WarsSheduledTasks(commands.Cog):
                                         await channel.send(f"> [ewb] Récupération des joueurs")
                                         players = []
                                         for player in war.clan.members:
-                                            players.append([match['ewb_IDMatch'], match['ewb_TeamA'], player.name, player.tag])
+                                            players.append([match['ewb_IDMatch'], match['ewb_TeamA'], player.name, player.tag, player.town_hall])
                                         for player in war.opponent.members:
-                                            players.append([match['ewb_IDMatch'], match['ewb_TeamB'], player.name, player.tag])
+                                            players.append([match['ewb_IDMatch'], match['ewb_TeamB'], player.name, player.tag, player.town_hall])
                                         row = tournament.get_last_row_on_players_data()
                                         target = f"B{row}"
                                         tournament.set_players_teams_list(target, players)

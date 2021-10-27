@@ -64,6 +64,7 @@ class TeamsManager(commands.Cog):
             await ctx.send(embed = templates.create_std_embed(self, ctx, color = tournament.config_file.color, title = f"{tournament}", desc = f"{desc}", logo = tournament.tournament_avatar))
             return
         
+        
         ## doit passer tests
         # if tournament.name == "Ecup":
         #     print(ctx.message.channel.id)
@@ -80,7 +81,7 @@ class TeamsManager(commands.Cog):
                 await ctx.send(embed = x)
         else:
             await ctx.send("> [ewb] Pas de résultat. Essayer `rkg.voir NomEquipe` ou `ecup.voir NomEquipe`")
-
+        await ctx.message.delete()
     
     @commands.command()
     async def recap(self, ctx, option=None):
@@ -129,9 +130,8 @@ class TeamsManager(commands.Cog):
             if tournament.name == "Ecup":
                 self.ewb.ecup.config_file.registration_recap_msg = response.id
             if tournament.name == "Ranking":
-                self.ewb.ranking.config_file.registration_recap_msg = response.id
-            
-                
+                self.ewb.ranking.config_file.registration_recap_msg = response.id   
+        await ctx.message.delete()   
             # print(type(tournament.config_file.registration_recap_msg))
 
     
@@ -175,7 +175,7 @@ class TeamsManager(commands.Cog):
                 gsheet.set_data_team_to_sheet(tournament, target, new_value)
                 target = f"ED{row}"
                 gsheet.set_data_team_to_sheet(tournament, target, str(ctx.message.author.display_name))
-                
+        await ctx.message.delete()   
     
     @commands.command()
     # @commands.has_permissions(manage_messages = True)
@@ -258,6 +258,7 @@ class TeamsManager(commands.Cog):
                 first_response = await ctx.send(embed = x)
         else:
             pass
+        await ctx.message.delete()
  
 def setup(bot):
     bot.add_cog(TeamsManager(bot))
