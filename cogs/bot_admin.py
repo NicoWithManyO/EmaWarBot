@@ -8,6 +8,8 @@ import config_files.ewb_bot as ewb_config
 import config_files.organization as orga
 
 import datetime, time
+import os
+import random
 
 from discord.ext import tasks
 
@@ -53,6 +55,15 @@ class BotAdmin(commands.Cog):
         """ ^^ """
         await ctx.send("https://cdn.discordapp.com/attachments/860198153047113789/899596293750521866/RTFR.png")
 
+    @commands.command()
+    async def meme(self, ctx):
+        pics_list = os.listdir("data/pics/")
+        current = random.sample(pics_list, 1)
+        current =  "data/pics/"+current[0]
+        print(current)
+        with open(current, 'rb') as f:
+            picture = discord.File(f)
+            await ctx.send(file=picture)
 
 def setup(bot):
     bot.add_cog(BotAdmin(bot))
