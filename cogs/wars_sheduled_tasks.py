@@ -70,15 +70,15 @@ class WarsSheduledTasks(commands.Cog):
             await ctx.send(f"> [ewb.LiveWarWatcher] {war.clan} {emojis.vs} {war.opponent} {war.opponent.tag}")
             await ctx.send(f"{war.state}")
             await ctx.send(f"> [ewb.LiveWarWatcher] Récupération des joueurs")
-            players = []
-            opp_players = []
-            if len(war.clan.members) < 10:
-                for player in war.clan.members:
-                    players.append(f"{war.clan.tag}, {player.name}, {player.tag}, TH{player.town_hall}")
-                for player in war.opponent.members:
-                    opp_players.append(f"{war.opponent.tag}, {player.name}, {player.tag}, TH{player.town_hall}")
-            await ctx.send(f"> [ewb.LiveWarWatcher] {war.clan} {war.clan.tag} {' | '.join(players)}")
-            await ctx.send(f"> [ewb.LiveWarWatcher] {war.opponent} {war.opponent.tag} {' | '.join(opp_players)}")
+            # players = []
+            # opp_players = []
+            # if len(war.clan.members) < 10:
+            #     for player in war.clan.members:
+            #         players.append(f"{war.clan.tag}, {player.name}, {player.tag}, TH{player.town_hall}")
+            #     for player in war.opponent.members:
+            #         opp_players.append(f"{war.opponent.tag}, {player.name}, {player.tag}, TH{player.town_hall}")
+            # await ctx.send(f"> [ewb.LiveWarWatcher] {war.clan} {war.clan.tag} {' | '.join(players)}")
+            # await ctx.send(f"> [ewb.LiveWarWatcher] {war.opponent} {war.opponent.tag} {' | '.join(opp_players)}")
         else:
             await ctx.send(f"> [ewb.LiveWarWatcher] {war} pour {tag}")
     
@@ -87,6 +87,7 @@ class WarsSheduledTasks(commands.Cog):
         print("detection des matchs")
         tournament = None
         channel = self.ewb.get_channel(ewb_config.war_log_channel)
+        ended_channel = self.ewb.get_channel(ewb_config.ended_wars_log_channel)
         for x in tournaments_config.active_tournaments:
             if x == "ecup":
                 tournament = self.ewb.ecup
@@ -137,6 +138,7 @@ class WarsSheduledTasks(commands.Cog):
                                     ended = ended + 1
                                     score = [[war.clan.destruction, war.clan.stars, war.opponent.stars, war.opponent.destruction, war.status]]
                                     print(score)
+                                    await ended_channel.send(f"> Fin de match : {match['ewb_TeamA']} {war.clan.destruction} {war.clan.stars} {emojis.vs} {war.opponent.stars} {war.opponent.destruction} {match['ewb_TeamB']} | {war.state}")
                                     await channel.send(score)
                                     roster = match['ewb_IDMatch'][:4]
                                     search = str(match['ewb_IDMatch'])

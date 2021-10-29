@@ -39,3 +39,4 @@ server_log_channel = 856190295452549130
 ewb_boot_channel = 860679276793036811
 
 war_log_channel = 898533641355939860
+ended_wars_log_channel = 903642250196693002
