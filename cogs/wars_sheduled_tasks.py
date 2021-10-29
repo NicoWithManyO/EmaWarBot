@@ -68,7 +68,7 @@ class WarsSheduledTasks(commands.Cog):
         war = await ingame.check_current_war(self, tag)
         if type(war) == coc.wars.ClanWar:
             # await ctx.send(f"> [ewb.LiveWarWatcher] {war.clan} {emojis.vs} {war.opponent} {war.opponent.tag}")
-            await ctxx.send(f"[ewb.{emojis.live}] **LIVE SCORE** {match['ewb_TeamA']} {war.clan.destruction} {war.clan.stars} {emojis.vs} {war.opponent.stars} {war.opponent.destruction} {match['ewb_TeamB']} | {war.state}")
+            await ctx.send(f"[ewb.{emojis.live}] **LIVE SCORE** {match['ewb_TeamA']} {war.clan.destruction} {war.clan.stars} {emojis.vs} {war.opponent.stars} {war.opponent.destruction} {match['ewb_TeamB']} | {war.state}")
             
             # players = []
             # opp_players = []
