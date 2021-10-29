@@ -89,8 +89,8 @@ class WarsSheduledTasks(commands.Cog):
         channel = self.ewb.get_channel(ewb_config.war_log_channel)
         ended_channel = self.ewb.get_channel(ewb_config.ended_wars_log_channel)
         for x in tournaments_config.active_tournaments:
-            if x == "ecup":
-                tournament = self.ewb.ecup
+            # if x == "ecup":
+            #     tournament = self.ewb.ecup
             if x == "ranking":
                 tournament = self.ewb.ranking
         self.round_full_matchs_list = tournament.get_round_matchs_list('full')
