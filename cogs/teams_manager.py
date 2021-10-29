@@ -134,31 +134,6 @@ class TeamsManager(commands.Cog):
         await ctx.message.delete()   
             # print(type(tournament.config_file.registration_recap_msg))
 
-    
-       
-    @commands.command()
-    async def liste(self, ctx, roster=None):
-        mixt = []
-        full = []
-        tournament = tournaments_helper.select_tournament(self, ctx.message.content)
-        data = tournament.get_registrations_teams_list()
-        for team in data:
-            current = f"`{team['ewb_ID']}`. {team['ewb_NomEquipe']}"
-            if team['Validée'] != "TRUE" and team['Refusée'] == "FALSE":
-                if team['ewb_Roster'] == "Mixt":
-                    mixt.append(current)
-                if team['ewb_Roster'] == "Full":
-                    full.append(current)
-        await ctx.send(f"> [ewb] `{tournament}`")
-        if not roster:
-            await ctx.send(f"> {len(mixt)} **Mixt** {' '.join(mixt)}")
-            await ctx.send(f"> {len(full)} **Full** {' '.join(full)}")
-        elif roster.lower() == "m":
-            await ctx.send(f"> {len(mixt)} **Mixt** {' '.join(mixt)}")
-        else: 
-            if roster.lower() == "f":
-                await ctx.send(f"> {len(full)} **Full** {' '.join(full)}")
-            
     @commands.command(aliases = ["v"])
     @commands.has_role("Staff E-magine ⭐")
     async def valid(self, ctx, id_team:int): 
@@ -175,7 +150,6 @@ class TeamsManager(commands.Cog):
                 gsheet.set_data_team_to_sheet(tournament, target, new_value)
                 target = f"ED{row}"
                 gsheet.set_data_team_to_sheet(tournament, target, str(ctx.message.author.display_name))
-        await ctx.message.delete()   
     
     @commands.command()
     # @commands.has_permissions(manage_messages = True)

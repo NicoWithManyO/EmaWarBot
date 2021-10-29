@@ -45,8 +45,8 @@ class WarsSheduledTasks(commands.Cog):
         tournament = None
         channel = self.ewb.get_channel(ewb_config.war_log_channel)
         for x in tournaments_config.active_tournaments:
-            if x == "ecup":
-                tournament = self.ewb.ecup
+            # if x == "ecup":
+            #     tournament = self.ewb.ecup
             if x == "ranking":
                 tournament = self.ewb.ranking
         self.round_full_matchs_list = tournament.get_horaires_matchs('full')
@@ -56,7 +56,8 @@ class WarsSheduledTasks(commands.Cog):
         for x in to_check:
             for match in x:
                 print(match['ewb_Horaire'])
-                if match['ewb_Horaire'] == "":
+                ## no testing
+                if match['ewb_Horaire'] == "" and match['ewb_Groupe']:
                     no_declaration.append(f"{match['ewb_TeamA']}/{match['ewb_TeamB']}")
         await ctx.send(f"__{len(no_declaration)} sans horaire :__  {' | '.join(no_declaration)}")
         if len(no_declaration) == 0:
