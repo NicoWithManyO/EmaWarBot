@@ -68,7 +68,7 @@ class WarsSheduledTasks(commands.Cog):
         war = await ingame.check_current_war(self, tag)
         if type(war) == coc.wars.ClanWar:
             # await ctx.send(f"> [ewb.LiveWarWatcher] {war.clan} {emojis.vs} {war.opponent} {war.opponent.tag}")
-            await ctx.send(f"[ewb.{emojis.live}] **LIVE SCORE** {war.clan} {war.clan.destruction} {war.clan.stars} {emojis.vs} {war.opponent.stars} {war.opponent.destruction} {war.opponent} | {war.state}")
+            await ctx.send(f"[ewb.{emojis.live}] **LIVE SCORE** {war.clan} {war.clan.destruction} **{war.clan.stars}** {emojis.vs} **{war.opponent.stars}** {war.opponent.destruction} {war.opponent} | {war.state}")
             
             # players = []
             # opp_players = []
@@ -138,7 +138,7 @@ class WarsSheduledTasks(commands.Cog):
                                     ended = ended + 1
                                     score = [[war.clan.destruction, war.clan.stars, war.opponent.stars, war.opponent.destruction, war.status]]
                                     print(score)
-                                    await ended_channel.send(f"> Fin de match : {match['ewb_TeamA']} {war.clan.destruction} {war.clan.stars} {emojis.vs} {war.opponent.stars} {war.opponent.destruction} {match['ewb_TeamB']} | {war.state}")
+                                    await ended_channel.send(f"> Fin de match : {match['ewb_TeamA']} {war.clan.destruction} **{war.clan.stars}** {emojis.vs} **{war.opponent.stars}** {war.opponent.destruction} {match['ewb_TeamB']} | {war.state}")
                                     await channel.send(score)
                                     roster = match['ewb_IDMatch'][:4]
                                     search = str(match['ewb_IDMatch'])
