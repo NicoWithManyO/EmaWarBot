@@ -138,7 +138,7 @@ class WarsSheduledTasks(commands.Cog):
                                     ended = ended + 1
                                     score = [[war.clan.destruction, war.clan.stars, war.opponent.stars, war.opponent.destruction, war.status]]
                                     print(score)
-                                    await ended_channel.send(f"> Fin de match : {match['ewb_TeamA']} {war.clan.destruction} **{war.clan.stars}** {emojis.vs} **{war.opponent.stars}** {war.opponent.destruction} {match['ewb_TeamB']} | {war.state}")
+                                    await ended_channel.send(f"> {tournament} | {match['ewb_TeamA']} {war.clan.destruction} **{war.clan.stars}** {emojis.vs} **{war.opponent.stars}** {war.opponent.destruction} {match['ewb_TeamB']} | {war.state}")
                                     await channel.send(score)
                                     roster = match['ewb_IDMatch'][:4]
                                     search = str(match['ewb_IDMatch'])
