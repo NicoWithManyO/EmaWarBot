@@ -25,7 +25,7 @@ class Daemon(commands.Bot):
         await boot_helper.get_cogs_list_from_dir(self)
         await boot_helper.load_cogs_list(self)
         # coc api
-        self.coc = coc_api.coc_client
+        # self.coc = coc_api.coc_client
         # OK
         print(f"[ewb] > I'm ready on {self.user}\n[ewb] > with prefix {' / '.join(ewb_config.prefix)}")
 
