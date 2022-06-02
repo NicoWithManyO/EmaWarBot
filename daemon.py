@@ -2,7 +2,7 @@
 import discord, os
 from discord.ext import commands
 
-import config_files.external_connectors.coc_api as coc_api
+# import config_files.external_connectors.coc_api as coc_api
 
 import config_files.ewb_bot as ewb_config
 import config_files.organization as orga
