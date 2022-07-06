@@ -18,7 +18,24 @@ class BotAdmin(commands.Cog):
         self.ewb = ewb
         self.clear_spam_log.start()
         self.clear_raid_detect.start()
-
+        
+    @commands.command(name="reset_roles")
+    @commands.has_role("Staff E-magine ⭐")
+    async def reset_roles(self, ctx):
+        # guild = ctx.get_guild(after.guild.id)
+        ecl_role = discord.utils.get(ctx.guild.roles, name="🔴+Référent Ecl")
+        ecup_role = discord.utils.get(ctx.guild.roles, name="🔵+Référent Ecup")
+        rkg_role = discord.utils.get(ctx.guild.roles, name="🔶+Référent Ranking")
+        ref_role = discord.utils.get(ctx.guild.roles, name="☄️-Référent")
+        for _ in ctx.guild.members:
+            if rkg_role in _.roles or ecl_role in _.roles or ecup_role in _.roles:
+                if ref_role not in _.roles:
+                    await _.add_roles(ref_role)
+                    await ctx.send(f"{_} {ref_role}")
+                else:
+                    await ctx.send(f"{_} à déjà {ref_role} !")
+                
+                
     @commands.command(name="clear", aliases = ["erase"])
     @commands.has_role("Staff E-magine ⭐")
     async def clear(self, ctx, lines:int):

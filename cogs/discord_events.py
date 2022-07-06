@@ -31,6 +31,13 @@ class DiscordEvents(commands.Cog):
                 action = f"{emojis.remove}"
             if role:
                 await channel_to_log.send(f"`[ewb]` {action} `{role}` {emojis.right_arrow} `{after}`")
+                # guild = ewb.get_guild(after.guild.id)
+                # ecl_role = discord.utils.get(guild.roles, name="🔴+Référent Ecl")
+                # rkg_role = discord.utils.get(guild.roles, name="🔵+Référent Ecup")
+                # ecup_role = discord.utils.get(guild.roles, name="🔶+Référent Ranking")
+                # if role == ecl_role:
+                #     ref_role = discord.utils.get(guild.roles, name="☄️-Référent")
+                #     await after.add_roles(ref_role)
 
         @ewb.event
         async def on_member_join(member):
