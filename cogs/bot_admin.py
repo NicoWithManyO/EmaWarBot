@@ -34,6 +34,9 @@ class BotAdmin(commands.Cog):
                     await ctx.send(f"{_} {ref_role}")
                 else:
                     await ctx.send(f"{_} à déjà {ref_role} !")
+                _.remove_roles(rkg_role)
+                _.remove_roles(ecl_role)
+                _.remove_roles(ecup_role)
                 
                 
     @commands.command(name="clear", aliases = ["erase"])
